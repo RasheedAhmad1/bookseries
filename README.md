@@ -1,6 +1,6 @@
 # Book Series
 
-An online books service
+An online application for books 
 
 ## License
 

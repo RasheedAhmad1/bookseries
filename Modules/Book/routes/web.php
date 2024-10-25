@@ -5,7 +5,7 @@ use Modules\Book\App\Http\Controllers\BookController;
 use Modules\Book\App\Http\Controllers\UserController;
 
 Route::group([], function () {
-    Route::resource('/book', BookController::class)->names('book');
+    // Route::resource('/books', BookController::class)->names('book');
     // Route::resource('/books', function() {
     //     return view('book::books')->name('book');
     // });
