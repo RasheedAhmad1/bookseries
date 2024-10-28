@@ -22,7 +22,7 @@
 </head>
 
 <body>
-    @yield('content')
+    @stack('content')
 
     {{-- Vite JS --}}
     {{-- {{ module_vite('build-setting', 'resources/assets/js/app.js') }} --}}

@@ -22,7 +22,7 @@
 
                 <div class="card-header col-md-12 d-flex justify-content-between align-items-center">
                     <h5 class="card-header text-primary">Books</h5>
-                    <a href="{{ url('/addbook') }}" class="btn btn-primary">Add Book</a>
+                    <a href="{{ route('book.create') }}" class="btn btn-primary">Add Book</a>
                 </div>
                 <div class="table-responsive text-nowrap card-body">
                     <table class="table">

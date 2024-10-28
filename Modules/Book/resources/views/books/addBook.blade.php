@@ -14,9 +14,9 @@
                     <h5 class="card-header text-primary">Add Book</h5>
                 </div>
                 <hr class="my-4 mx-n4">
-                <form action="{{ url('storebook'); }}" method="POST" class="card-body">
+                <form action="{{ route('book.store'); }}" method="POST" class="card-body">
                     @csrf
-                    
+
                     {{-- Title --}}
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label text-sm-end" for="alignment-username">Title</label>
@@ -114,7 +114,7 @@
                     {{-- Add book button --}}
                     <hr class="my-4 mx-n4">
                     <div class="card-footer col-md-12 d-flex justify-content-center align-items-center">
-                        <button type="submit" class="btn btn-primary">Add Book</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>
             </div>

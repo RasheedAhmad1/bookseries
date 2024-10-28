@@ -10,15 +10,10 @@ use Modules\Book\App\Models\Author;
 class BookController extends Controller
 {
     // Display a listing of the resource.
-    // public function index()
-    // {
-    //     return view('book::books');
-    // }
-    
-    public function showBooks()
+    public function index()
     {
         $books = Book::all();
-        return view('book::books', [
+        return view('book::books.showBooks', [
             'books' => $books,
         ]);
     }
@@ -28,7 +23,7 @@ class BookController extends Controller
     {
         $authors = Author::all();
         $statuses = Book::statuses;
-        return view('book::addBook', ['authors' => $authors, 'statuses' => $statuses]);
+        return view('book::books.addBook', ['authors' => $authors, 'statuses' => $statuses]);
     }
 
     // Store a newly created resource in storage.
@@ -39,14 +34,14 @@ class BookController extends Controller
         // if ($request->hasFile('image')) {
         //     $book->addMediaFromRequest('image')->toMediaCollection('images');
         // }
-    
-        return redirect()->route('books')->with('success', 'Book added successfully!');
+
+        return redirect()->route('books.show')->with('success', 'Book added successfully!');
     }
 
     // Show the specified resource.
     public function show($id)
     {
-        return view('book::addBook');
+        return view('book::books.addBook');
     }
 
     // Show the form for editing the specified resource.
@@ -55,7 +50,7 @@ class BookController extends Controller
         $book= Book::findOrFail($id);
         $statuses = Book::statuses;
         $authors = Author::all();
-        return view('book::editBook', [
+        return view('book::books.editBook', [
             'book' => $book,
             'statuses' => $statuses,
             'authors' => $authors
@@ -80,17 +75,14 @@ class BookController extends Controller
         $books->category_id = $request->category_id;
         $books->author_id = $request->author_id;
 
-
         // if ($request->hasFile('image')) {
-
         //     $books->clearMediaCollection('images'); // all media in the images collection will be deleted
-
         //     $books->addMediaFromRequest('image')->toMediaCollection('images');
         // }
 
         $books->save();
 
-        return redirect()->route('books')->with('success', 'Book updated successfully!');
+        return redirect()->route('books.show')->with('success', 'Book updated successfully!');
     }
 
     // Remove the specified resource from storage.
@@ -98,6 +90,6 @@ class BookController extends Controller
     {
         $book = Book::find($id);
         $book->delete();
-        return redirect()->route('books')->with('danger', 'Book deleted successfully!');
+        return redirect()->route('books.show')->with('danger', 'Book deleted successfully!');
     }
 }
