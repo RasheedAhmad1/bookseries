@@ -3,9 +3,9 @@
   <div class="app-brand demo">
     <a href="/home" class="app-brand-link">
       <span class="app-brand-logo demo">
-        <img src="{{ asset('assets/img/branding/logo-full.png') }}" 
-            alt="Book Series" 
-            width="70" 
+        <img src="{{ asset('assets/img/branding/logo-full.png') }}"
+            alt="Book Series"
+            width="70"
             height="60"
         >
       </span>
@@ -42,7 +42,7 @@
           </a>
         </li>
         <li class="menu-item">
-          <a href="dashboards-ecommerce.html" class="menu-link">
+          <a href="authors" class="menu-link">
             <div data-i18n="Authors">Authors</div>
           </a>
         </li>

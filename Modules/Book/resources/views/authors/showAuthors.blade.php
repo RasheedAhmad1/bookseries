@@ -21,43 +21,33 @@
                 @endif
 
                 <div class="card-header col-md-12 d-flex justify-content-between align-items-center">
-                    <h5 class="card-header text-primary">Books</h5>
-                    <a href="{{ route('book.create') }}" class="btn btn-primary">Add Book</a>
+                    <h5 class="card-header text-primary">Authors</h5>
+                    <a href="{{ route('author.create') }}" class="btn btn-primary">Add Author</a>
                 </div>
                 <div class="table-responsive text-nowrap card-body">
                     <table class="table">
                         <thead class="table-light">
                             <tr>
                                 <th>ID</th>
-                                <th>Title</th>
-                                <th>Publisher</th>
-                                <th>Language</th>
-                                <th>Auther</th>
-                                <th>Enabled</th>
-                                <th>Price</th>
-                                <th>Actions</th>
+                                <th>Name</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody class="table-border-bottom-0">
-                            @foreach ($books as $book)
+                            @foreach ($authors as $author)
                                 <tr>
-                                    <td>{{ $book->id }}</td>
-                                    <td>{{ $book->title }}</td>
-                                    <td>{{ $book->publisher }}</td>
-                                    <td>{{ $book->language }}</td>
-                                    <td>{{ $book->author->name }}</td>
-                                    <td>{{ $book->id }}</td>
-                                    <td>{{ $book->price }}</td>
+                                    <td>{{ $author->id }}</td>
+                                    <td>{{ $author->name }}</td>
                                     <td>
                                         <div class="dropdown">
                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                                             <i class="bx bx-dots-vertical-rounded"></i>
                                         </button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="{{ url('editbook/' . $book->id ) }}"
+                                            <a class="dropdown-item" href="{{ url('editauthor/' . $author->id ) }}"
                                             ><i class="bx bx-edit-alt me-1"></i> Edit</a
                                             >
-                                            <a class="dropdown-item" href="{{ url('deletebook/' . $book->id ) }}"
+                                            <a class="dropdown-item" href="{{ url('deleteauthor/' . $author->id ) }}"
                                             ><i class="bx bx-trash me-1"></i> Delete</a
                                             >
                                         </div>

@@ -1,10 +1,11 @@
 <?php
 
-namespace Modules\Book\Http\Controllers;
+namespace Modules\Book\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Modules\Book\App\Models\Author;
+use Modules\Book\App\Models\Book;
 
 class AuthorController extends Controller
 {
@@ -20,7 +21,8 @@ class AuthorController extends Controller
     // Show the form for creating a new resource
     public function create()
     {
-        return view('book::create');
+        $authors = Author::all();
+        return view('book::authors.addAuthor', ['authors' => $authors]);
     }
 
     // Store a newly created resource in storage
@@ -38,7 +40,12 @@ class AuthorController extends Controller
     // Show the form for editing the specified resource
     public function edit($id)
     {
-        return view('book::edit');
+        $author = Author::findOrFail($id);
+        $books = Book::all();
+        return view('book::books.editBook', [
+            'authors' => $author,
+            'books' => $books
+        ]);
     }
 
     // Update the specified resource in storage

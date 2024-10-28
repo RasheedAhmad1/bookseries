@@ -13,6 +13,7 @@ class Book extends Model
     // protected $table = 'users';
 
     use HasFactory;
+    
     public const statuses = [
         1 => 'Available',
         2 => 'Unavailable',
