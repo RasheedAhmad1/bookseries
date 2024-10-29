@@ -72,7 +72,6 @@ class BookController extends Controller
         $books->price = $request->price;
         $books->online_amount = $request->online_amount;
         $books->ship_amount = $request->ship_amount;
-        $books->category_id = $request->category_id;
         $books->author_id = $request->author_id;
 
         // if ($request->hasFile('image')) {

@@ -28,7 +28,8 @@ class AuthorController extends Controller
     // Store a newly created resource in storage
     public function store(Request $request)
     {
-        //
+        $author = Author::create($request->all());
+        return redirect()->route('authors.show')->with('success', 'Author added successfully!');
     }
 
     // Show the specified resource
@@ -41,22 +42,30 @@ class AuthorController extends Controller
     public function edit($id)
     {
         $author = Author::findOrFail($id);
-        $books = Book::all();
-        return view('book::books.editBook', [
-            'authors' => $author,
-            'books' => $books
+        return view('book::authors.editAuthor', [
+            'author' => $author
         ]);
     }
 
     // Update the specified resource in storage
     public function update(Request $request, $id)
     {
-        //
+        $author = Author::where('id', $id)->first();
+
+        $author->name = $request->name;
+        $author->slug = $request->slug;
+        $author->description = $request->description;
+
+        $author->save();
+
+        return redirect()->route('authors.show')->with('success', 'Book updated successfully!');
     }
 
     // Remove the specified resource from storage
     public function destroy($id)
     {
-        //
+        $author = Author::find($id);
+        $author->delete();
+        return redirect()->route('authors.show')->with('danger', 'Book deleted successfully!');
     }
 }

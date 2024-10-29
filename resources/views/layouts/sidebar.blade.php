@@ -30,28 +30,28 @@
         <div data-i18n="Content">Content</div>
       </a>
       <ul class="menu-sub">
-        <li class="menu-item active">
+        <li class="menu-item {{ request()->is('books') || request()->is('addbook') ? 'active' : '' }}">
           <a href="/books" class="menu-link">
             {{-- <i class="fa-solid fa-book"></i> --}}
             <div data-i18n="Books">Books</div>
           </a>
         </li>
-        <li class="menu-item">
+        <li class="menu-item {{ request()->is('') || request()->is('') ? 'active' : '' }}">
           <a href="dashboards-ecommerce.html" class="menu-link">
             <div data-i18n="Tests">Tests</div>
           </a>
         </li>
-        <li class="menu-item">
-          <a href="authors" class="menu-link">
+        <li class="menu-item {{ request()->is('authors') || request()->is('addauthor') ? 'active' : '' }}">
+          <a href="{{ route('authors.show') }}" class="menu-link">
             <div data-i18n="Authors">Authors</div>
           </a>
         </li>
-        <li class="menu-item">
+        <li class="menu-item {{ request()->is('') || request()->is('') ? 'active' : '' }}">
           <a href="dashboards-ecommerce.html" class="menu-link">
             <div data-i18n="Users">Users</div>
           </a>
         </li>
-        <li class="menu-item">
+        <li class="menu-item {{ request()->is('') || request()->is('') ? 'active' : '' }}">
           <a href="dashboards-ecommerce.html" class="menu-link">
             <div data-i18n="Comments">Comments</div>
           </a>

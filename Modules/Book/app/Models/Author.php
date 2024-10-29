@@ -10,10 +10,8 @@ class Author extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     */
-    protected $fillable = [];
+    // The attributes that are mass assignable
+    protected $fillable = ['name', 'slug', 'description'];
 
     // protected static function newFactory(): AuthorFactory
     // {
