@@ -39,3 +39,4 @@ Route::get('editauthor/{id}', [AuthorController::class, 'edit'])->name('author.e
 Route::post('updateauthor/{id}', [AuthorController::class, 'update'])->name('author.update');
 Route::get('deleteauthor/{id}', [AuthorController::class, 'destroy'])->name('author.delete');
 Route::delete('/delete-author/{id}', [AuthorController::class, 'destroy'])->name('author.delete');
+Route::delete('/delete-author/{id}', [AuthorController::class, 'destroy'])->name('author.delete');
