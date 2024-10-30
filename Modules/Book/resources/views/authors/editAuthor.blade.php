@@ -11,7 +11,7 @@
         <div class="col-xxl">
             <div class="card mb-4">
                 <div class="card-header col-md-12 d-flex justify-content-between align-items-center">
-                    <h5 class="card-header text-primary">Update Author</h5>
+                    <h5 class="card-header text-primary">Edit Author</h5>
                 </div>
                 <hr class="my-4 mx-n4">
                 <form action="{{ url('updateauthor', $author->id) }}" method="POST" class="card-body">

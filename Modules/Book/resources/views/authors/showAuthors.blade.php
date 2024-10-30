@@ -28,26 +28,29 @@
                     <table class="table">
                         <thead class="table-light">
                             <tr>
-                                <th>ID</th>
+                                <th>S. No.</th>
                                 <th>Name</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody class="table-border-bottom-0">
-                            @foreach ($authors as $author)
+                            @foreach ($authors as $key => $author)
                                 <tr>
-                                    <td>{{ $author->id }}</td>
+                                    <td>{{ ++$key }}</td> <!-- Serial Number -->
                                     <td>{{ $author->name }}</td>
+                                    @php
+                                        $id = Crypt::encrypt($author->id)
+                                    @endphp
                                     <td>
                                         <div class="dropdown">
                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                                             <i class="bx bx-dots-vertical-rounded"></i>
                                         </button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="{{ url('editauthor/' . $author->id ) }}"
+                                            <a class="dropdown-item" href="{{ url('editauthor/' . $id ) }}"
                                             ><i class="bx bx-edit-alt me-1"></i> Edit</a
                                             >
-                                            <a class="dropdown-item" href="{{ url('deleteauthor/' . $author->id ) }}"
+                                            <a class="dropdown-item" href="{{ url('deleteauthor/' . $id ) }}"
                                             ><i class="bx bx-trash me-1"></i> Delete</a
                                             >
                                         </div>
