@@ -5,7 +5,7 @@ namespace Modules\Book\App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Modules\Book\App\Models\Author;
-use Modules\Book\App\Models\Book;
+use Illuminate\Support\Facades\Crypt;
 
 class AuthorController extends Controller
 {
@@ -14,7 +14,7 @@ class AuthorController extends Controller
     {
         $authors = Author::all();
         return view('book::authors.showAuthors', [
-            'authors' => $authors,
+            'authors' => $authors
         ]);
     }
 
@@ -35,13 +35,16 @@ class AuthorController extends Controller
     // Show the specified resource
     public function show($id)
     {
-        return view('book::show');
+        $decrypted_id = Crypt::decrypt($id);
+        $author= Author::findOrFail($decrypted_id);
+        return view('book::authors.show');
     }
 
     // Show the form for editing the specified resource
     public function edit($id)
     {
-        $author = Author::findOrFail($id);
+        $decrypted_id = Crypt::decrypt($id);
+        $author = Author::findOrFail($decrypted_id);
         return view('book::authors.editAuthor', [
             'author' => $author
         ]);
@@ -58,14 +61,15 @@ class AuthorController extends Controller
 
         $author->save();
 
-        return redirect()->route('authors.show')->with('success', 'Book updated successfully!');
+        return redirect()->route('authors.show')->with('success', 'Author updated successfully!');
     }
 
     // Remove the specified resource from storage
     public function destroy($id)
     {
-        $author = Author::find($id);
+        $decrypted_id = Crypt::decrypt($id);
+        $author = Author::find($decrypted_id);
         $author->delete();
-        return redirect()->route('authors.show')->with('danger', 'Book deleted successfully!');
+        return redirect()->route('authors.show')->with('danger', 'Author deleted successfully!');
     }
 }
