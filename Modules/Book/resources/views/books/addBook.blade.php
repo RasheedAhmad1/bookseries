@@ -17,15 +17,14 @@
                 @endforeach
             </ol>
         </nav>
-    </div>
-    <!-- End of Dynamic Breadcrumb -->
+    </div><!--/ Dynamic Breadcrumb -->
 
     <!--Form -->
     <div class="row">
         <div class="col-xxl">
             <div class="card mb-4">
                 <div class="card-header col-md-12 d-flex justify-content-between align-items-center">
-                    <h5 class="card-header text-primary"># New Book</h5>
+                    <h5 class="card-header text-primary">New Book</h5>
                 </div>
                 <hr class="my-4 mx-n4">
                 <form action="{{ route('book.store') }}" method="POST" class="card-body" enctype="multipart/form-data">
@@ -35,12 +34,8 @@
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label text-sm-end" for="title">Title</label>
                         <div class="col-sm-8">
-<<<<<<< HEAD
-                            <input type="text" name="title" id="title" class="form-control" placeholder="Enter book title" />
-=======
                             <input type="text" name="title" id="alignment-username" class="form-control"
                                 placeholder="Enter book title" />
->>>>>>> c9b6d04095477a306a64c9cc43630950235a9a6b
                         </div>
                     </div>
 
@@ -57,12 +52,8 @@
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label text-sm-end" for="alignment-publisher">Publisher</label>
                         <div class="col-sm-8">
-<<<<<<< HEAD
-                            <input type="text" name="publisher" id="alignment-publisher" class="form-control" placeholder="Enter publisher name" />
-=======
                             <input type="text" name="publisher" id="alignment-username" class="form-control"
                                 placeholder="Enter publisher name" />
->>>>>>> c9b6d04095477a306a64c9cc43630950235a9a6b
                         </div>
                     </div>
 
@@ -70,12 +61,8 @@
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label text-sm-end" for="alignment-language">Language</label>
                         <div class="col-sm-8">
-<<<<<<< HEAD
-                            <input type="text" name="language" id="alignment-language" class="form-control" placeholder="Select language" />
-=======
                             <input type="text" name="language" id="alignment-username" class="form-control"
                                 placeholder="Select language" />
->>>>>>> c9b6d04095477a306a64c9cc43630950235a9a6b
                         </div>
                     </div>
 
@@ -83,12 +70,8 @@
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label text-sm-end" for="alignment-order">Order No.</label>
                         <div class="col-sm-8">
-<<<<<<< HEAD
-                            <input type="text" name="orderNo" id="alignment-order" class="form-control" placeholder="Order no." />
-=======
                             <input type="text" name="orderNo" id="alignment-username" class="form-control"
                                 placeholder="Order no." />
->>>>>>> c9b6d04095477a306a64c9cc43630950235a9a6b
                         </div>
                     </div>
 
@@ -148,7 +131,6 @@
                             </select>
                         </div>
                     </div>
-
 
                     {{-- Image file --}}
                     <div class="row mb-3">

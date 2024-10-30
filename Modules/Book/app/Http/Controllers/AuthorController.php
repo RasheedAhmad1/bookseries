@@ -61,7 +61,8 @@ class AuthorController extends Controller
     // Show the form for editing the specified resource
     public function edit($id)
     {
-        $author = Author::findOrFail($id);
+        $decrypted_id = Crypt::decrypt($id);
+        $author= Author::findOrFail($decrypted_id);
         $breadcrumbs = [
             ['name' => 'Home', 'url' => route('home')],
             ['name' => 'Dashboard', 'url' => route('book.dashboard')],

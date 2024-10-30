@@ -6,13 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Book\Database\Factories\BookFactory;
 // use Modules\Book\App\Models\Author;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\HasMedia;
 
 class Book extends Model implements HasMedia
 {
     // Optionally specify the table name, if it differs from the pluralized form of the model name
     // protected $table = 'users';
 
-    use HasFactory;
+
+    use HasFactory, InteractsWithMedia;
 
     public const statuses = [
         1 => 'Available',

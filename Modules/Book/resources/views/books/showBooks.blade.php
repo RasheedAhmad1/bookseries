@@ -19,8 +19,7 @@
                 @endforeach
             </ol>
         </nav>
-    </div>
-    <!-- End of Dynamic Breadcrumb -->
+    </div><!--/ Dynamic Breadcrumb -->
 
     <!-- Table -->
     <div class="row">
@@ -37,7 +36,7 @@
                 @endif
 
                 <div class="card-header col-md-12 d-flex justify-content-between align-items-center">
-                    <h5 class="card-header text-primary"># Books</h5>
+                    <h5 class="card-header text-primary">Books</h5>
                     <a href="{{ route('book.create') }}" class="btn btn-primary">Add Book</a>
                 </div>
                 <div class="table-responsive text-nowrap card-body">
@@ -69,30 +68,17 @@
                                     @endphp
                                     <td>
                                         <div class="dropdown">
-<<<<<<< HEAD
-                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                                <i class="bx bx-dots-vertical-rounded"></i>
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="{{ url('editbook/' . $id) }}"
-                                                ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                                                >
-                                                <a class="dropdown-item" href="{{ url('deletebook/' . $id ) }}"
-                                                ><i class="bx bx-trash me-1"></i> Delete</a
-                                                >
-=======
                                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
                                                 data-bs-toggle="dropdown">
                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="{{ url('editbook/' . $book->id) }}"><i
+                                                <a class="dropdown-item" href="{{ url('editbook/' . $id) }}"><i
                                                         class="bx bx-edit-alt me-1"></i> Edit</a>
                                                 <button type="button" class="dropdown-item deletebtn"
-                                                    onclick="deleteBook({{ $book->id }})">
+                                                    onclick="deleteBook({{ $book->$id }})">
                                                     <i class="bx bx-trash me-1"></i> Delete
                                                 </button>
->>>>>>> c9b6d04095477a306a64c9cc43630950235a9a6b
                                             </div>
                                         </div>
                                     </td>
@@ -105,6 +91,7 @@
         </div>
     </div>
 @endpush
+
 @push('scripts')
     <script src="{{ asset('assets/js/ui-modals.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
