@@ -79,7 +79,6 @@ class BookController extends Controller
         $book= Book::findOrFail($decrypted_id);
         return view('book::books.show');
     }
-    public function show($id) {}
 
     // Show the form for editing the specified resource.
     public function edit($id)
@@ -126,9 +125,9 @@ class BookController extends Controller
         // }
         if ($request->hasFile('image')) {
 
-            $books->clearMediaCollection('images'); // all media in the images collection will be deleted
+            $book->clearMediaCollection('images'); // all media in the images collection will be deleted
 
-            $books->addMediaFromRequest('image')->toMediaCollection('images');
+            $book->addMediaFromRequest('image')->toMediaCollection('images');
         }
 
         $book->save();
