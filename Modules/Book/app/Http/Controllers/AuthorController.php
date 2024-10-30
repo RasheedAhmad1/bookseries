@@ -13,8 +13,19 @@ class AuthorController extends Controller
     public function index()
     {
         $authors = Author::all();
+        $breadcrumbs = [
+            ['name' => 'Home', 'url' => route('home')],
+            ['name' => 'Dashboard', 'url' => route('book.dashboard')],
+            ['name' => 'Authors']
+
+        ];
         return view('book::authors.showAuthors', [
+<<<<<<< HEAD
             'authors' => $authors
+=======
+            'authors' => $authors,
+            'breadcrumbs' => $breadcrumbs
+>>>>>>> c9b6d04095477a306a64c9cc43630950235a9a6b
         ]);
     }
 
@@ -22,7 +33,18 @@ class AuthorController extends Controller
     public function create()
     {
         $authors = Author::all();
-        return view('book::authors.addAuthor', ['authors' => $authors]);
+        $breadcrumbs = [
+            ['name' => 'Home', 'url' => route('home')],
+            ['name' => 'Dashboard', 'url' => route('book.dashboard')],
+            ['name' => 'Authors', 'url' => route('authors.show')],
+            ['name' => 'New Author']
+
+
+        ];
+        return view('book::authors.addAuthor', [
+            'authors' => $authors,
+            'breadcrumbs' => $breadcrumbs
+        ]);
     }
 
     // Store a newly created resource in storage
@@ -43,10 +65,21 @@ class AuthorController extends Controller
     // Show the form for editing the specified resource
     public function edit($id)
     {
+<<<<<<< HEAD
         $decrypted_id = Crypt::decrypt($id);
         $author = Author::findOrFail($decrypted_id);
+=======
+        $author = Author::findOrFail($id);
+        $breadcrumbs = [
+            ['name' => 'Home', 'url' => route('home')],
+            ['name' => 'Dashboard', 'url' => route('book.dashboard')],
+            ['name' => 'Authors', 'url' => route('authors.show')],
+            ['name' => 'Edit Author']
+        ];
+>>>>>>> c9b6d04095477a306a64c9cc43630950235a9a6b
         return view('book::authors.editAuthor', [
-            'author' => $author
+            'author' => $author,
+            'breadcrumbs' => $breadcrumbs
         ]);
     }
 
@@ -67,9 +100,20 @@ class AuthorController extends Controller
     // Remove the specified resource from storage
     public function destroy($id)
     {
+<<<<<<< HEAD
         $decrypted_id = Crypt::decrypt($id);
         $author = Author::find($decrypted_id);
         $author->delete();
         return redirect()->route('authors.show')->with('danger', 'Author deleted successfully!');
+=======
+        $author = Author::find($id);
+
+        if ($author) {
+            $author->delete();
+            return response()->json(['success' => 'Author deleted successfully.']);
+        } else {
+            return response()->json(['error' => 'Book not found.'], 404);
+        }
+>>>>>>> c9b6d04095477a306a64c9cc43630950235a9a6b
     }
 }
