@@ -72,7 +72,13 @@ class BookController extends Controller
     }
 
     // Show the specified resource.
-    public function show($id) {}
+    public function show($id)
+    {
+
+        $decrypted_id = Crypt::decrypt($id);
+        $book= Book::findOrFail($decrypted_id);
+        return view('book::books.show');
+    }
 
     // Show the form for editing the specified resource.
     public function edit($id)
