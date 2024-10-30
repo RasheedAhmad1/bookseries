@@ -34,12 +34,8 @@ class BookController extends Controller
         ];
 
         return view('book::books.showBooks', [
-<<<<<<< HEAD
-            'books' => $books
-=======
             'books' => $books,
             'breadcrumbs' => $breadcrumbs
->>>>>>> c9b6d04095477a306a64c9cc43630950235a9a6b
         ]);
     }
 
@@ -76,7 +72,6 @@ class BookController extends Controller
     }
 
     // Show the specified resource.
-<<<<<<< HEAD
     public function show($id)
     {
 
@@ -84,19 +79,14 @@ class BookController extends Controller
         $book= Book::findOrFail($decrypted_id);
         return view('book::books.show');
     }
-=======
     public function show($id) {}
->>>>>>> c9b6d04095477a306a64c9cc43630950235a9a6b
 
     // Show the form for editing the specified resource.
     public function edit($id)
     {
-<<<<<<< HEAD
         $decrypted_id = Crypt::decrypt($id);
         $book = Book::findOrFail($decrypted_id);
-=======
         $book = Book::findOrFail($id);
->>>>>>> c9b6d04095477a306a64c9cc43630950235a9a6b
         $statuses = Book::statuses;
         $authors = Author::all();
         $breadcrumbs = [
@@ -130,19 +120,16 @@ class BookController extends Controller
         $book->ship_amount = $request->ship_amount;
         $book->author_id = $request->author_id;
 
-<<<<<<< HEAD
         // if ($request->hasFile('image')) {
         //     $book->clearMediaCollection('images'); // all media in the images collection will be deleted
         //     $book->addMediaFromRequest('image')->toMediaCollection('images');
         // }
-=======
         if ($request->hasFile('image')) {
 
             $books->clearMediaCollection('images'); // all media in the images collection will be deleted
 
             $books->addMediaFromRequest('image')->toMediaCollection('images');
         }
->>>>>>> c9b6d04095477a306a64c9cc43630950235a9a6b
 
         $book->save();
 
@@ -152,12 +139,10 @@ class BookController extends Controller
     // Remove the specified resource from storage.
     public function destroy($id)
     {
-<<<<<<< HEAD
         $decrypted_id = Crypt::decrypt($id);
         $book = Book::find($decrypted_id);
         $book->delete();
         return redirect()->route('books.show')->with('danger', 'Book deleted successfully!');
-=======
         $book = Book::find($id);
 
         if ($book) {
@@ -166,6 +151,5 @@ class BookController extends Controller
         } else {
             return response()->json(['error' => 'Book not found.'], 404);
         }
->>>>>>> c9b6d04095477a306a64c9cc43630950235a9a6b
     }
 }
