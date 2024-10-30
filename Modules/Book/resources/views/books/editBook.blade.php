@@ -11,12 +11,12 @@
         <div class="col-xxl">
             <div class="card mb-4">
                 <div class="card-header col-md-12 d-flex justify-content-between align-items-center">
-                    <h5 class="card-header text-primary">Update Book</h5>
+                    <h5 class="card-header text-primary">Edit Book</h5>
                 </div>
                 <hr class="my-4 mx-n4">
                 <form action="{{ url('updatebook', $book->id) }}" method="POST" class="card-body">
                     @csrf
-                    
+
                     {{-- Title --}}
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label text-sm-end" for="alignment-username">Title</label>
@@ -115,7 +115,7 @@
                     {{-- Add book button --}}
                     <hr class="my-4 mx-n4">
                     <div class="card-footer col-md-12 d-flex justify-content-center align-items-center">
-                        <button type="submit" class="btn btn-primary">Update Book</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>
             </div>

@@ -5,7 +5,7 @@ namespace Modules\Book\App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Book\Database\Factories\BookFactory;
-// use Modules\Book\App\Models\Author;
+use Modules\Book\App\Models\Author;
 
 class Book extends Model
 {
@@ -13,7 +13,7 @@ class Book extends Model
     // protected $table = 'users';
 
     use HasFactory;
-    
+
     public const statuses = [
         1 => 'Available',
         2 => 'Unavailable',
@@ -27,7 +27,7 @@ class Book extends Model
     protected $fillable = ['title', 'description', 'publisher', 'language', 'orderNo', 'status', 'price', 'online_amount', 'ship_amount', 'author_id'];
 
     // Allow all fields except 'is_admin' and 'id' to be mass assigned
-    // protected $guarded = ['id'];
+    // protected $guarded = ['is_admin', 'id'];
 
     // protected static function newFactory(): BookFactory
     // {
