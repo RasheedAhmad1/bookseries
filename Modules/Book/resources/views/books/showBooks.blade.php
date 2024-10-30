@@ -1,10 +1,26 @@
-{{-- @extends('book::layouts.master') --}}
 @extends('masterLayout.master')
-
+@push('style')
+@endpush
 @push('content')
-
-    <!-- Breadcrumb -->
-    @include('layouts.breadcrumb')
+    <!-- Dynamic Breadcrumb -->
+    <div class="row">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                @foreach ($breadcrumbs as $breadcrumb)
+                    @if (!$loop->last)
+                        <!-- Linkes for items-->
+                        <li class="breadcrumb-item">
+                            <a href="{{ $breadcrumb['url'] }}" class="anchor-link">{{ $breadcrumb['name'] }}</a>
+                        </li>
+                    @else
+                        <!-- Active last item but not a link -->
+                        <li class="breadcrumb-item active link-primary" aria-current="page">{{ $breadcrumb['name'] }}</li>
+                    @endif
+                @endforeach
+            </ol>
+        </nav>
+    </div>
+    <!-- End of Dynamic Breadcrumb -->
 
     <!-- Table -->
     <div class="row">
@@ -21,7 +37,7 @@
                 @endif
 
                 <div class="card-header col-md-12 d-flex justify-content-between align-items-center">
-                    <h5 class="card-header text-primary">Books</h5>
+                    <h5 class="card-header text-primary"># Books</h5>
                     <a href="{{ route('book.create') }}" class="btn btn-primary">Add Book</a>
                 </div>
                 <div class="table-responsive text-nowrap card-body">
@@ -50,17 +66,18 @@
                                     <td>{{ $book->price }}</td>
                                     <td>
                                         <div class="dropdown">
-                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                            <i class="bx bx-dots-vertical-rounded"></i>
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="{{ url('editbook/' . $book->id ) }}"
-                                            ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                                            >
-                                            <a class="dropdown-item" href="{{ url('deletebook/' . $book->id ) }}"
-                                            ><i class="bx bx-trash me-1"></i> Delete</a
-                                            >
-                                        </div>
+                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                data-bs-toggle="dropdown">
+                                                <i class="bx bx-dots-vertical-rounded"></i>
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="{{ url('editbook/' . $book->id) }}"><i
+                                                        class="bx bx-edit-alt me-1"></i> Edit</a>
+                                                <button type="button" class="dropdown-item deletebtn"
+                                                    onclick="deleteBook({{ $book->id }})">
+                                                    <i class="bx bx-trash me-1"></i> Delete
+                                                </button>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
@@ -72,7 +89,47 @@
         </div>
     </div>
 @endpush
-
-{{-- @push('scripts')
+@push('scripts')
+    <script src="{{ asset('assets/js/ui-modals.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-@endpush --}}
+
+    <script>
+        function deleteBook(book_id) {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                cancelButtonColor: "#d33",
+                confirmButtonColor: "#347842",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '/delete-book/' + book_id,
+                        type: 'DELETE',
+                        data: {
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(response) {
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "The book has been deleted.",
+                                icon: "success"
+                            }).then(() => {
+                                location.reload();
+                            });
+                        },
+                        error: function(xhr) {
+                            Swal.fire({
+                                title: "Error!",
+                                text: "There was an issue deleting the book.",
+                                icon: "error"
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+@endpush

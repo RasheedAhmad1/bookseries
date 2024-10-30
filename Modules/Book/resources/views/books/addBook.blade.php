@@ -1,27 +1,42 @@
-{{-- @extends('book::layouts.master') --}}
 @extends('masterLayout.master')
-
 @push('content')
-
-    <!-- Breadcrumb -->
-    @include('layouts.breadcrumb')
+    <!-- Dynamic Breadcrumb -->
+    <div class="row">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                @foreach ($breadcrumbs as $breadcrumb)
+                    @if (!$loop->last)
+                        <!-- Linkes for items-->
+                        <li class="breadcrumb-item anchor-link">
+                            <a href="{{ $breadcrumb['url'] }}">{{ $breadcrumb['name'] }}</a>
+                        </li>
+                    @else
+                        <!-- Active last item but not a link -->
+                        <li class="breadcrumb-item active text-primary" aria-current="page">{{ $breadcrumb['name'] }}</li>
+                    @endif
+                @endforeach
+            </ol>
+        </nav>
+    </div>
+    <!-- End of Dynamic Breadcrumb -->
 
     <!--Form -->
     <div class="row">
         <div class="col-xxl">
             <div class="card mb-4">
                 <div class="card-header col-md-12 d-flex justify-content-between align-items-center">
-                    <h5 class="card-header text-primary">Add Book</h5>
+                    <h5 class="card-header text-primary"># New Book</h5>
                 </div>
                 <hr class="my-4 mx-n4">
-                <form action="{{ route('book.store'); }}" method="POST" class="card-body">
+                <form action="{{ route('book.store') }}" method="POST" class="card-body" enctype="multipart/form-data">
                     @csrf
 
                     {{-- Title --}}
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label text-sm-end" for="alignment-username">Title</label>
                         <div class="col-sm-8">
-                            <input type="text" name="title" id="alignment-username" class="form-control" placeholder="Enter book title" />
+                            <input type="text" name="title" id="alignment-username" class="form-control"
+                                placeholder="Enter book title" />
                         </div>
                     </div>
 
@@ -29,7 +44,8 @@
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label text-sm-end" for="alignment-username">Description</label>
                         <div class="col-sm-8">
-                            <textarea type="text" name="description" id="editor" class="editor form-control" placeholder="Enter book description"></textarea>
+                            <textarea type="text" name="description" id="editor" class="editor form-control"
+                                placeholder="Enter book description"></textarea>
                         </div>
                     </div>
 
@@ -37,7 +53,8 @@
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label text-sm-end" for="alignment-username">Publisher</label>
                         <div class="col-sm-8">
-                            <input type="text" name="publisher" id="alignment-username" class="form-control" placeholder="Enter publisher name" />
+                            <input type="text" name="publisher" id="alignment-username" class="form-control"
+                                placeholder="Enter publisher name" />
                         </div>
                     </div>
 
@@ -45,7 +62,8 @@
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label text-sm-end" for="alignment-username">Language</label>
                         <div class="col-sm-8">
-                            <input type="text" name="language" id="alignment-username" class="form-control" placeholder="Select language" />
+                            <input type="text" name="language" id="alignment-username" class="form-control"
+                                placeholder="Select language" />
                         </div>
                     </div>
 
@@ -53,7 +71,8 @@
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label text-sm-end" for="alignment-username">Order No.</label>
                         <div class="col-sm-8">
-                            <input type="text" name="orderNo" id="alignment-username" class="form-control" placeholder="Order no." />
+                            <input type="text" name="orderNo" id="alignment-username" class="form-control"
+                                placeholder="Order no." />
                         </div>
                     </div>
 
@@ -76,7 +95,8 @@
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label text-sm-end" for="alignment-username">Price</label>
                         <div class="col-sm-8">
-                            <input type="text" name="price" id="alignment-username" class="form-control" placeholder="0.0" />
+                            <input type="text" name="price" id="alignment-username" class="form-control"
+                                placeholder="0.0" />
                         </div>
                     </div>
 
@@ -84,7 +104,8 @@
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label text-sm-end" for="alignment-username">Online Amount</label>
                         <div class="col-sm-8">
-                            <input type="text" name="online_amount" id="alignment-username" class="form-control" placeholder="0.0" />
+                            <input type="text" name="online_amount" id="alignment-username" class="form-control"
+                                placeholder="0.0" />
                         </div>
                     </div>
 
@@ -92,7 +113,8 @@
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label text-sm-end" for="alignment-username">Shipping Charges</label>
                         <div class="col-sm-8">
-                            <input type="text" name="ship_amount" id="alignment-username" class="form-control" placeholder="0.0" />
+                            <input type="text" name="ship_amount" id="alignment-username" class="form-control"
+                                placeholder="0.0" />
                         </div>
                     </div>
 
@@ -111,8 +133,17 @@
                         </div>
                     </div>
 
-                    {{-- Add book button --}}
+
+                    {{-- Image file --}}
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label text-sm-end" for="gallery">Gallery</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" type="file" name="image[]" id="image_id" multiple>
+                        </div>
+                    </div>
+
                     <hr class="my-4 mx-n4">
+                    {{-- Add book button --}}
                     <div class="card-footer col-md-12 d-flex justify-content-center align-items-center">
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
@@ -124,5 +155,7 @@
 
 @push('scripts')
     <script src="{{ asset('assets/editors/ckeditor/ckeditor.js') }}"></script>
-    <script>CKEDITOR.replace('editor');</script>
+    <script>
+        CKEDITOR.replace('editor');
+    </script>
 @endpush

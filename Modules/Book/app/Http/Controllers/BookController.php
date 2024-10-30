@@ -9,12 +9,32 @@ use Modules\Book\App\Models\Author;
 
 class BookController extends Controller
 {
-    // Display a listing of the resource.
+
     public function index()
     {
+        $breadcrumbs = [
+            ['name' => 'Home', 'url' => route('home')],
+            ['name' => 'Dashboard']
+
+        ];
+        return view('book::index', [
+            'breadcrumbs' => $breadcrumbs
+        ]);
+    }
+
+    // Display a listing of the resource.
+    public function showBooks()
+    {
         $books = Book::all();
+        $breadcrumbs = [
+            ['name' => 'Home', 'url' => route('home')],
+            ['name' => 'Dashboard', 'url' => route('book.dashboard')],
+            ['name' => 'Books']
+        ];
+
         return view('book::books.showBooks', [
             'books' => $books,
+            'breadcrumbs' => $breadcrumbs
         ]);
     }
 
@@ -23,7 +43,18 @@ class BookController extends Controller
     {
         $authors = Author::all();
         $statuses = Book::statuses;
-        return view('book::books.addBook', ['authors' => $authors, 'statuses' => $statuses]);
+        $breadcrumbs = [
+            ['name' => 'Home', 'url' => route('home')],
+            ['name' => 'Dashboard', 'url' => route('book.dashboard')],
+            ['name' => 'Books', 'url' => route('books.show')],
+            ['name' => 'New Book']
+
+        ];
+        return view('book::books.addBook', [
+            'authors' => $authors,
+            'statuses' => $statuses,
+            'breadcrumbs' => $breadcrumbs
+        ]);
     }
 
     // Store a newly created resource in storage.
@@ -31,29 +62,35 @@ class BookController extends Controller
     {
         $book = Book::create($request->all());
 
-        // if ($request->hasFile('image')) {
-        //     $book->addMediaFromRequest('image')->toMediaCollection('images');
-        // }
+        if ($request->hasFile('image')) {
+            foreach ($request->file('image') as $image)
+                $book->addMedia($image)->toMediaCollection('images');
+        }
 
         return redirect()->route('books.show')->with('success', 'Book added successfully!');
     }
 
     // Show the specified resource.
-    public function show($id)
-    {
-        return view('book::books.addBook');
-    }
+    public function show($id) {}
 
     // Show the form for editing the specified resource.
     public function edit($id)
     {
-        $book= Book::findOrFail($id);
+        $book = Book::findOrFail($id);
         $statuses = Book::statuses;
         $authors = Author::all();
+        $breadcrumbs = [
+            ['name' => 'Home', 'url' => route('home')],
+            ['name' => 'Dashboard', 'url' => route('book.dashboard')],
+            ['name' => 'Books', 'url' => route('books.show')],
+            ['name' => 'Edit Book']
+
+        ];
         return view('book::books.editBook', [
             'book' => $book,
             'statuses' => $statuses,
-            'authors' => $authors
+            'authors' => $authors,
+            'breadcrumbs' => $breadcrumbs
         ]);
     }
 
@@ -74,10 +111,12 @@ class BookController extends Controller
         $books->ship_amount = $request->ship_amount;
         $books->author_id = $request->author_id;
 
-        // if ($request->hasFile('image')) {
-        //     $books->clearMediaCollection('images'); // all media in the images collection will be deleted
-        //     $books->addMediaFromRequest('image')->toMediaCollection('images');
-        // }
+        if ($request->hasFile('image')) {
+
+            $books->clearMediaCollection('images'); // all media in the images collection will be deleted
+
+            $books->addMediaFromRequest('image')->toMediaCollection('images');
+        }
 
         $books->save();
 
@@ -88,7 +127,12 @@ class BookController extends Controller
     public function destroy($id)
     {
         $book = Book::find($id);
-        $book->delete();
-        return redirect()->route('books.show')->with('danger', 'Book deleted successfully!');
+
+        if ($book) {
+            $book->delete();
+            return response()->json(['success' => 'Book deleted successfully.']);
+        } else {
+            return response()->json(['error' => 'Book not found.'], 404);
+        }
     }
 }
