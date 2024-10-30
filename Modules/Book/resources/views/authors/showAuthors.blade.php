@@ -51,7 +51,6 @@
                     <tbody class="table-border-bottom-0">
                         @foreach ($authors as $author)
                             <tr>
-<<<<<<< HEAD
                                 <th>S. No.</th>
                                 <th>Name</th>
                                 <th>Action</th>
@@ -77,7 +76,6 @@
                                             <a class="dropdown-item" href="{{ url('deleteauthor/' . $id ) }}"
                                             ><i class="bx bx-trash me-1"></i> Delete</a
                                             >
-=======
                                 <td>{{ $author->id }}</td>
                                 <td>{{ $author->name }}</td>
                                 <td>
@@ -92,7 +90,6 @@
                                             <button type="submit" class="dropdown-item deletebtn"
                                                 onclick="deleteAuthor({{ $author->id }})"><i class="bx bx-trash me-1"></i>
                                                 Delete</button>
->>>>>>> c9b6d04095477a306a64c9cc43630950235a9a6b
                                         </div>
                                     </div>
                                 </td>

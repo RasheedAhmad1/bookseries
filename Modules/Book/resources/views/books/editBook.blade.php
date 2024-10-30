@@ -27,11 +27,8 @@
         <div class="col-xxl">
             <div class="card mb-4">
                 <div class="card-header col-md-12 d-flex justify-content-between align-items-center">
-<<<<<<< HEAD
                     <h5 class="card-header text-primary">Edit Book</h5>
-=======
                     <h5 class="card-header text-primary"># Edit book</h5>
->>>>>>> c9b6d04095477a306a64c9cc43630950235a9a6b
                 </div>
                 <hr class="my-1 mx-1">
                 <form action="{{ url('updatebook', $book->id) }}" method="POST" class="card-body"
