@@ -5,15 +5,14 @@ namespace Modules\Book\App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Book\Database\Factories\BookFactory;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\HasMedia;
 // use Modules\Book\App\Models\Author;
 
-class Book extends Model
+class Book extends Model implements HasMedia
 {
-    // Optionally specify the table name, if it differs from the pluralized form of the model name
-    // protected $table = 'users';
+    use HasFactory, InteractsWithMedia;
 
-    use HasFactory;
-    
     public const statuses = [
         1 => 'Available',
         2 => 'Unavailable',
@@ -34,7 +33,8 @@ class Book extends Model
     //     // return BookFactory::new();
     // }
 
-    public function author() {
+    public function author()
+    {
         return $this->belongsTo(Author::class);
     }
 }
