@@ -13,8 +13,15 @@ class AuthorController extends Controller
     public function index()
     {
         $authors = Author::all();
+        $breadcrumbs = [
+            ['name' => 'Home', 'url' => route('home')],
+            ['name' => 'Dashboard', 'url' => route('book.dashboard')],
+            ['name' => 'Authors']
+
+        ];
         return view('book::authors.showAuthors', [
             'authors' => $authors,
+            'breadcrumbs' => $breadcrumbs
         ]);
     }
 
@@ -22,7 +29,18 @@ class AuthorController extends Controller
     public function create()
     {
         $authors = Author::all();
-        return view('book::authors.addAuthor', ['authors' => $authors]);
+        $breadcrumbs = [
+            ['name' => 'Home', 'url' => route('home')],
+            ['name' => 'Dashboard', 'url' => route('book.dashboard')],
+            ['name' => 'Authors', 'url' => route('authors.show')],
+            ['name' => 'New Author']
+
+
+        ];
+        return view('book::authors.addAuthor', [
+            'authors' => $authors,
+            'breadcrumbs' => $breadcrumbs
+        ]);
     }
 
     // Store a newly created resource in storage
@@ -42,8 +60,15 @@ class AuthorController extends Controller
     public function edit($id)
     {
         $author = Author::findOrFail($id);
+        $breadcrumbs = [
+            ['name' => 'Home', 'url' => route('home')],
+            ['name' => 'Dashboard', 'url' => route('book.dashboard')],
+            ['name' => 'Authors', 'url' => route('authors.show')],
+            ['name' => 'Edit Author']
+        ];
         return view('book::authors.editAuthor', [
-            'author' => $author
+            'author' => $author,
+            'breadcrumbs' => $breadcrumbs
         ]);
     }
 
@@ -58,14 +83,19 @@ class AuthorController extends Controller
 
         $author->save();
 
-        return redirect()->route('authors.show')->with('success', 'Book updated successfully!');
+        return redirect()->route('authors.show')->with('success', 'Author updated successfully!');
     }
 
     // Remove the specified resource from storage
     public function destroy($id)
     {
         $author = Author::find($id);
-        $author->delete();
-        return redirect()->route('authors.show')->with('danger', 'Book deleted successfully!');
+
+        if ($author) {
+            $author->delete();
+            return response()->json(['success' => 'Author deleted successfully.']);
+        } else {
+            return response()->json(['error' => 'Book not found.'], 404);
+        }
     }
 }
