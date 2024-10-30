@@ -18,6 +18,39 @@
 
     <div class="menu-inner-shadow"></div>
 
+<<<<<<< HEAD
+  <ul class="menu-inner py-1">
+    <!-- Content -->
+    <li class="menu-item active open">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-layout"></i>
+        <div data-i18n="Content">Content</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item {{ in_array(request()->path(), ['books', 'addbook', 'editbook/' . request('id'), 'deletebook/' . request('id')]) ? 'active' : '' }}">
+          <a href="/books" class="menu-link">
+            {{-- <i class="fa-solid fa-book"></i> --}}
+            <div data-i18n="Books">Books</div>
+          </a>
+        </li>
+        <li class="menu-item {{ in_array(request()->path(), ['tests', 'addtest', 'edittest/' . request('id'), 'deletetest/' . request('id')]) ? 'active' : '' }}">
+          <a href="{{ route('tests.show') }}" class="menu-link">
+            <div data-i18n="Tests">Tests</div>
+          </a>
+        </li>
+        <li class="menu-item {{ in_array(request()->path(), ['authors', 'addauthor', 'editauthor/' . request('id'), 'deleteauthor/' . request('id')]) ? 'active' : '' }}">
+          <a href="{{ route('authors.show') }}" class="menu-link">
+            <div data-i18n="Authors">Authors</div>
+          </a>
+        </li>
+        <li class="menu-item {{ in_array(request()->path(), ['comments', 'addcomment', 'editcomment/' . request('id'), 'deletecomment/' . request('id')]) ? 'active' : '' }}">
+          <a href="dashboards-ecommerce.html" class="menu-link">
+            <div data-i18n="Comments">Comments</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+=======
     <ul class="menu-inner py-1">
         <!-- Content -->
         <li class="menu-item active open">
@@ -60,6 +93,7 @@
                 </li>
             </ul>
         </li>
+>>>>>>> c9b6d04095477a306a64c9cc43630950235a9a6b
 
         <!-- Orders -->
         <li class="menu-item">

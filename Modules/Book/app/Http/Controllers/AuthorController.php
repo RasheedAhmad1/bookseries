@@ -5,7 +5,7 @@ namespace Modules\Book\App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Modules\Book\App\Models\Author;
-use Modules\Book\App\Models\Book;
+use Illuminate\Support\Facades\Crypt;
 
 class AuthorController extends Controller
 {
@@ -20,8 +20,12 @@ class AuthorController extends Controller
 
         ];
         return view('book::authors.showAuthors', [
+<<<<<<< HEAD
+            'authors' => $authors
+=======
             'authors' => $authors,
             'breadcrumbs' => $breadcrumbs
+>>>>>>> c9b6d04095477a306a64c9cc43630950235a9a6b
         ]);
     }
 
@@ -53,12 +57,18 @@ class AuthorController extends Controller
     // Show the specified resource
     public function show($id)
     {
-        return view('book::show');
+        $decrypted_id = Crypt::decrypt($id);
+        $author= Author::findOrFail($decrypted_id);
+        return view('book::authors.show');
     }
 
     // Show the form for editing the specified resource
     public function edit($id)
     {
+<<<<<<< HEAD
+        $decrypted_id = Crypt::decrypt($id);
+        $author = Author::findOrFail($decrypted_id);
+=======
         $author = Author::findOrFail($id);
         $breadcrumbs = [
             ['name' => 'Home', 'url' => route('home')],
@@ -66,6 +76,7 @@ class AuthorController extends Controller
             ['name' => 'Authors', 'url' => route('authors.show')],
             ['name' => 'Edit Author']
         ];
+>>>>>>> c9b6d04095477a306a64c9cc43630950235a9a6b
         return view('book::authors.editAuthor', [
             'author' => $author,
             'breadcrumbs' => $breadcrumbs
@@ -89,6 +100,12 @@ class AuthorController extends Controller
     // Remove the specified resource from storage
     public function destroy($id)
     {
+<<<<<<< HEAD
+        $decrypted_id = Crypt::decrypt($id);
+        $author = Author::find($decrypted_id);
+        $author->delete();
+        return redirect()->route('authors.show')->with('danger', 'Author deleted successfully!');
+=======
         $author = Author::find($id);
 
         if ($author) {
@@ -97,5 +114,6 @@ class AuthorController extends Controller
         } else {
             return response()->json(['error' => 'Book not found.'], 404);
         }
+>>>>>>> c9b6d04095477a306a64c9cc43630950235a9a6b
     }
 }

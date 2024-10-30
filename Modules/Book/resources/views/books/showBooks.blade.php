@@ -44,7 +44,7 @@
                     <table class="table">
                         <thead class="table-light">
                             <tr>
-                                <th>ID</th>
+                                <th>S. No.</th>
                                 <th>Title</th>
                                 <th>Publisher</th>
                                 <th>Language</th>
@@ -55,17 +55,32 @@
                             </tr>
                         </thead>
                         <tbody class="table-border-bottom-0">
-                            @foreach ($books as $book)
+                            @foreach ($books as $key => $book)
                                 <tr>
-                                    <td>{{ $book->id }}</td>
+                                    <td>{{ ++$key }}</td> <!-- Serial Number -->
                                     <td>{{ $book->title }}</td>
                                     <td>{{ $book->publisher }}</td>
                                     <td>{{ $book->language }}</td>
                                     <td>{{ $book->author->name }}</td>
-                                    <td>{{ $book->id }}</td>
+                                    <td>{{ $book->enabled }}</td>
                                     <td>{{ $book->price }}</td>
+                                    @php
+                                        $id = Crypt::encrypt($book->id)
+                                    @endphp
                                     <td>
                                         <div class="dropdown">
+<<<<<<< HEAD
+                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                                <i class="bx bx-dots-vertical-rounded"></i>
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="{{ url('editbook/' . $id) }}"
+                                                ><i class="bx bx-edit-alt me-1"></i> Edit</a
+                                                >
+                                                <a class="dropdown-item" href="{{ url('deletebook/' . $id ) }}"
+                                                ><i class="bx bx-trash me-1"></i> Delete</a
+                                                >
+=======
                                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
                                                 data-bs-toggle="dropdown">
                                                 <i class="bx bx-dots-vertical-rounded"></i>
@@ -77,6 +92,7 @@
                                                     onclick="deleteBook({{ $book->id }})">
                                                     <i class="bx bx-trash me-1"></i> Delete
                                                 </button>
+>>>>>>> c9b6d04095477a306a64c9cc43630950235a9a6b
                                             </div>
                                         </div>
                                     </td>

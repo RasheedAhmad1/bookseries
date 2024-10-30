@@ -33,16 +33,20 @@
 
                     {{-- Title --}}
                     <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label text-sm-end" for="alignment-username">Title</label>
+                        <label class="col-sm-2 col-form-label text-sm-end" for="title">Title</label>
                         <div class="col-sm-8">
+<<<<<<< HEAD
+                            <input type="text" name="title" id="title" class="form-control" placeholder="Enter book title" />
+=======
                             <input type="text" name="title" id="alignment-username" class="form-control"
                                 placeholder="Enter book title" />
+>>>>>>> c9b6d04095477a306a64c9cc43630950235a9a6b
                         </div>
                     </div>
 
                     {{-- Description --}}
                     <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label text-sm-end" for="alignment-username">Description</label>
+                        <label class="col-sm-2 col-form-label text-sm-end" for="alignment-publisher">Description</label>
                         <div class="col-sm-8">
                             <textarea type="text" name="description" id="editor" class="editor form-control"
                                 placeholder="Enter book description"></textarea>
@@ -51,36 +55,48 @@
 
                     {{-- Publisher --}}
                     <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label text-sm-end" for="alignment-username">Publisher</label>
+                        <label class="col-sm-2 col-form-label text-sm-end" for="alignment-publisher">Publisher</label>
                         <div class="col-sm-8">
+<<<<<<< HEAD
+                            <input type="text" name="publisher" id="alignment-publisher" class="form-control" placeholder="Enter publisher name" />
+=======
                             <input type="text" name="publisher" id="alignment-username" class="form-control"
                                 placeholder="Enter publisher name" />
+>>>>>>> c9b6d04095477a306a64c9cc43630950235a9a6b
                         </div>
                     </div>
 
                     {{-- Language --}}
                     <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label text-sm-end" for="alignment-username">Language</label>
+                        <label class="col-sm-2 col-form-label text-sm-end" for="alignment-language">Language</label>
                         <div class="col-sm-8">
+<<<<<<< HEAD
+                            <input type="text" name="language" id="alignment-language" class="form-control" placeholder="Select language" />
+=======
                             <input type="text" name="language" id="alignment-username" class="form-control"
                                 placeholder="Select language" />
+>>>>>>> c9b6d04095477a306a64c9cc43630950235a9a6b
                         </div>
                     </div>
 
                     {{-- Order --}}
                     <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label text-sm-end" for="alignment-username">Order No.</label>
+                        <label class="col-sm-2 col-form-label text-sm-end" for="alignment-order">Order No.</label>
                         <div class="col-sm-8">
+<<<<<<< HEAD
+                            <input type="text" name="orderNo" id="alignment-order" class="form-control" placeholder="Order no." />
+=======
                             <input type="text" name="orderNo" id="alignment-username" class="form-control"
                                 placeholder="Order no." />
+>>>>>>> c9b6d04095477a306a64c9cc43630950235a9a6b
                         </div>
                     </div>
 
                     {{-- Status --}}
                     <div class="row mb-3">
-                        <label for="defaultSelect" class="col-sm-2 col-form-label text-sm-end">Availibility Status</label>
+                        <label for="status" class="col-sm-2 col-form-label text-sm-end">Availibility Status</label>
                         <div class="col-sm-8">
-                            <select id="defaultSelect" name="status" class="form-select">
+                            <select id="status" name="status" class="form-select">
                                 <option value="">Select status</option>
                                 @foreach ($statuses as $key => $value)
                                     <option value="{{ $key }}">

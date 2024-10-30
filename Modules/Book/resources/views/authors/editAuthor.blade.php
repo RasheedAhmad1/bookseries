@@ -27,11 +27,20 @@
         <div class="col-xl-12">
             <!-- HTML5 Inputs -->
             <div class="card mb-4">
+<<<<<<< HEAD
+                <div class="card-header col-md-12 d-flex justify-content-between align-items-center">
+                    <h5 class="card-header text-primary">Edit Author</h5>
+                </div>
+                <hr class="my-4 mx-n4">
+                <form action="{{ url('updateauthor', $author->id) }}" method="POST" class="card-body">
+                    @csrf
+=======
                 <h5 class="card-header text-primary"># Edit Author</h5>
                 <div class="menu-divider mb-4"></div>
                 <div class="card-body mt-0">
                     <form action="{{ url('updateauthor', $author->id) }}" method="POST" class="card-body">
                         @csrf
+>>>>>>> c9b6d04095477a306a64c9cc43630950235a9a6b
 
                         {{-- Name --}}
                         <div class="row mb-3">
