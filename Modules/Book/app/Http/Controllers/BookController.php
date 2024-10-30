@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Modules\Book\App\Models\Book;
 use Modules\Book\App\Models\Author;
+use Illuminate\Support\Facades\Crypt;
 
 class BookController extends Controller
 {
@@ -14,7 +15,7 @@ class BookController extends Controller
     {
         $books = Book::all();
         return view('book::books.showBooks', [
-            'books' => $books,
+            'books' => $books
         ]);
     }
 
@@ -41,13 +42,17 @@ class BookController extends Controller
     // Show the specified resource.
     public function show($id)
     {
-        return view('book::books.addBook');
+
+        $decrypted_id = Crypt::decrypt($id);
+        $book= Book::findOrFail($decrypted_id);
+        return view('book::books.show');
     }
 
     // Show the form for editing the specified resource.
     public function edit($id)
     {
-        $book= Book::findOrFail($id);
+        $decrypted_id = Crypt::decrypt($id);
+        $book = Book::findOrFail($decrypted_id);
         $statuses = Book::statuses;
         $authors = Author::all();
         return view('book::books.editBook', [
@@ -60,26 +65,25 @@ class BookController extends Controller
     // Update the specified resource in storage.
     public function update(Request $request, $id)
     {
+        $book = Book::where('id', $id)->first();
 
-        $books = Book::where('id', $id)->first();
-
-        $books->title = $request->title;
-        $books->description = $request->description;
-        $books->publisher = $request->publisher;
-        $books->language = $request->language;
-        $books->orderNo = $request->orderNo;
-        $books->status = $request->status;
-        $books->price = $request->price;
-        $books->online_amount = $request->online_amount;
-        $books->ship_amount = $request->ship_amount;
-        $books->author_id = $request->author_id;
+        $book->title = $request->title;
+        $book->description = $request->description;
+        $book->publisher = $request->publisher;
+        $book->language = $request->language;
+        $book->orderNo = $request->orderNo;
+        $book->status = $request->status;
+        $book->price = $request->price;
+        $book->online_amount = $request->online_amount;
+        $book->ship_amount = $request->ship_amount;
+        $book->author_id = $request->author_id;
 
         // if ($request->hasFile('image')) {
-        //     $books->clearMediaCollection('images'); // all media in the images collection will be deleted
-        //     $books->addMediaFromRequest('image')->toMediaCollection('images');
+        //     $book->clearMediaCollection('images'); // all media in the images collection will be deleted
+        //     $book->addMediaFromRequest('image')->toMediaCollection('images');
         // }
 
-        $books->save();
+        $book->save();
 
         return redirect()->route('books.show')->with('success', 'Book updated successfully!');
     }
@@ -87,7 +91,8 @@ class BookController extends Controller
     // Remove the specified resource from storage.
     public function destroy($id)
     {
-        $book = Book::find($id);
+        $decrypted_id = Crypt::decrypt($id);
+        $book = Book::find($decrypted_id);
         $book->delete();
         return redirect()->route('books.show')->with('danger', 'Book deleted successfully!');
     }
