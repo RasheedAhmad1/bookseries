@@ -35,7 +35,7 @@
                 </div>
             @endif
             <div class="card-header col-md-12 d-flex justify-content-between align-items-center">
-                <h5 class="card-header text-primary"># Authors</h5>
+                <h5 class="card-header text-primary">Authors</h5>
                 <a href="{{ route('author.create') }}" class="btn btn-primary">Add Author</a>
             </div>
             <div class="menu-divider mb-4"></div>
@@ -43,52 +43,29 @@
                 <table class="table">
                     <thead class="table-light">
                         <tr>
-                            <th>ID</th>
+                            <th>S. No.</th>
                             <th>Name</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                        @foreach ($authors as $author)
+                        @foreach ($authors as $key => $author)
                             <tr>
-                                <th>S. No.</th>
-                                <th>Name</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody class="table-border-bottom-0">
-                            @foreach ($authors as $key => $author)
-                                <tr>
-                                    <td>{{ ++$key }}</td> <!-- Serial Number -->
-                                    <td>{{ $author->name }}</td>
-                                    @php
-                                        $id = Crypt::encrypt($author->id)
-                                    @endphp
-                                    <td>
-                                        <div class="dropdown">
+                                <td>{{ ++$key }}</td> <!-- Serial Number -->
+                                <td>{{ $author->name }}</td>
+                                @php
+                                    $id = Crypt::encrypt($author->id)
+                                @endphp
+                                <td>
+                                    <div class="dropdown">
                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                                             <i class="bx bx-dots-vertical-rounded"></i>
                                         </button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="{{ url('editauthor/' . $id ) }}"
-                                            ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                                            >
-                                            <a class="dropdown-item" href="{{ url('deleteauthor/' . $id ) }}"
-                                            ><i class="bx bx-trash me-1"></i> Delete</a
-                                            >
-                                <td>{{ $author->id }}</td>
-                                <td>{{ $author->name }}</td>
-                                <td>
-                                    <div class="dropdown">
-                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                            data-bs-toggle="dropdown">
-                                            <i class="bx bx-dots-vertical-rounded"></i>
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="{{ url('editauthor/' . $author->id) }}"><i
+                                            <a class="dropdown-item" href="{{ url('editauthor/' . $id) }}"><i
                                                     class="bx bx-edit-alt me-1"></i> Edit</a>
                                             <button type="submit" class="dropdown-item deletebtn"
-                                                onclick="deleteAuthor({{ $author->id }})"><i class="bx bx-trash me-1"></i>
+                                                onclick="deleteAuthor({{ $id }})"><i class="bx bx-trash me-1"></i>
                                                 Delete</button>
                                         </div>
                                     </div>
