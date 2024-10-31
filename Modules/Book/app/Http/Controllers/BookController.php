@@ -10,13 +10,11 @@ use Illuminate\Support\Facades\Crypt;
 
 class BookController extends Controller
 {
-
     public function index()
     {
         $breadcrumbs = [
             ['name' => 'Home', 'url' => route('home')],
             ['name' => 'Dashboard']
-
         ];
         return view('book::index', [
             'breadcrumbs' => $breadcrumbs
@@ -49,8 +47,8 @@ class BookController extends Controller
             ['name' => 'Dashboard', 'url' => route('book.dashboard')],
             ['name' => 'Books', 'url' => route('books.show')],
             ['name' => 'New Book']
-
         ];
+
         return view('book::books.addBook', [
             'authors' => $authors,
             'statuses' => $statuses,
@@ -74,7 +72,6 @@ class BookController extends Controller
     // Show the specified resource.
     public function show($id)
     {
-
         $decrypted_id = Crypt::decrypt($id);
         $book= Book::findOrFail($decrypted_id);
         return view('book::books.show');
@@ -85,7 +82,6 @@ class BookController extends Controller
     {
         $decrypted_id = Crypt::decrypt($id);
         $book = Book::findOrFail($decrypted_id);
-        $book = Book::findOrFail($id);
         $statuses = Book::statuses;
         $authors = Author::all();
         $breadcrumbs = [
@@ -93,8 +89,8 @@ class BookController extends Controller
             ['name' => 'Dashboard', 'url' => route('book.dashboard')],
             ['name' => 'Books', 'url' => route('books.show')],
             ['name' => 'Edit Book']
-
         ];
+
         return view('book::books.editBook', [
             'book' => $book,
             'statuses' => $statuses,
@@ -119,14 +115,8 @@ class BookController extends Controller
         $book->ship_amount = $request->ship_amount;
         $book->author_id = $request->author_id;
 
-        // if ($request->hasFile('image')) {
-        //     $book->clearMediaCollection('images'); // all media in the images collection will be deleted
-        //     $book->addMediaFromRequest('image')->toMediaCollection('images');
-        // }
         if ($request->hasFile('image')) {
-
             $book->clearMediaCollection('images'); // all media in the images collection will be deleted
-
             $book->addMediaFromRequest('image')->toMediaCollection('images');
         }
 
@@ -141,8 +131,6 @@ class BookController extends Controller
         $decrypted_id = Crypt::decrypt($id);
         $book = Book::find($decrypted_id);
         $book->delete();
-        return redirect()->route('books.show')->with('danger', 'Book deleted successfully!');
-        $book = Book::find($id);
 
         if ($book) {
             $book->delete();
