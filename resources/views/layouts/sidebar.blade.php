@@ -48,8 +48,8 @@
                         <div data-i18n="Authors">Authors</div>
                     </a>
                 </li>
-                <li class="menu-item {{ request()->is('') || request()->is('') ? 'active' : '' }}">
-                    <a href="dashboards-ecommerce.html" class="menu-link">
+                <li class="menu-item {{ in_array(request()->path(), ['comments', 'addcomment', 'editcomment/' . request('id'), 'deletecomment/' . request('id')]) ? 'active' : '' }}">
+                    <a href="{{ route('comments.show') }}" class="menu-link">
                         <div data-i18n="Comments">Comments</div>
                     </a>
                 </li>
