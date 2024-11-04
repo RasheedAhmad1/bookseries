@@ -3,7 +3,7 @@
     <div class="app-brand demo">
         <a href="/home" class="app-brand-link">
             <span class="app-brand-logo demo">
-                <img src="{{ asset('assets/img/branding/logo-full.jpg') }}" alt="Book Series" width="70" height="60">
+                <img src="{{ asset('assets/img/branding/logo-full.png') }}" alt="Book Series" width="70" height="60">
             </span>
             <span class="app-brand-text demo menu-text fw-bold ms-2">Book Series</span>
         </a>
