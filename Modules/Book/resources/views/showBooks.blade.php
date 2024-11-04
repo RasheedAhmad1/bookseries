@@ -45,7 +45,7 @@
                             <tr>
                                 <th>S. No.</th>
                                 <th>Title</th>
-                                <th>Auther</th>
+                                <th>Author</th>
                                 <th>Price</th>
                                 <th>Actions</th>
                             </tr>
