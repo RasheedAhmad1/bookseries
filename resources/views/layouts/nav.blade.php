@@ -198,12 +198,12 @@
                       <small class="text-muted">1h ago</small>
                     </div>
                     <div class="flex-shrink-0 dropdown-notifications-actions">
-                      <a href="javascript:void(0)" class="dropdown-notifications-read"
-                        ><span class="badge badge-dot"></span
-                      ></a>
-                      <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                        ><span class="bx bx-x"></span
-                      ></a>
+                      <a href="javascript:void(0)" class="dropdown-notifications-read">
+                        <span class="badge badge-dot"></span>
+                      </a>
+                      <a href="javascript:void(0)" class="dropdown-notifications-archive">
+                        <span class="bx bx-x"></span>
+                      </a>
                     </div>
                   </div>
                 </li>
@@ -442,7 +442,7 @@
               <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
                 <i class="bx bx-power-off me-2"></i>
                 <span class="align-middle">Log Out</span>
-              </a>    
+              </a>
               <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
                   {{ csrf_field() }}
               </form>
