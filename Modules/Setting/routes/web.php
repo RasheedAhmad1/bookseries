@@ -1,19 +1,51 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
+use Modules\Setting\App\Http\Controllers\UserController;
 use Modules\Setting\App\Http\Controllers\SettingController;
+use Modules\Setting\App\Http\Controllers\RoleController;
+use Modules\Setting\App\Http\Controllers\PermissionController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+// Route::group(['middleware' => ['auth']], function () {
+//     Route::resource('settings', SettingController::class);
+//     Route::resource('roles', RoleController::class);
+//     Route::resource('users', UserController::class);
+// });
 
-Route::group([], function () {
-    Route::resource('setting', SettingController::class)->names('setting');
+// Users routes
+Route::prefix('users')->middleware('auth')->group(function () {
+    Route::get('/', [UserController::class, 'index'])->name('users.index');          // List all users
+    Route::get('/create', [UserController::class, 'create'])->name('user.create');   // Create a users
+    Route::get('/store', [UserController::class, 'store'])->name('user.store');      // Store a user
+    Route::get('/show', [UserController::class, 'show'])->name('user.show');         // Show a user
+    Route::get('/{user}/edit', [UserController::class, 'edit'])->name('user.edit');  // Edit a user
+    Route::put('/{user}', [UserController::class, 'update'])->name('user.update');   // Update user
+    Route::put('/{user}', [UserController::class, 'destroy'])->name('user.destroy'); // Delete user
+});
+
+// Settings routes
+Route::prefix('settings')->middleware('auth')->group(function () {
+    Route::get('/', [SettingController::class, 'index'])->name('settings.index');          // View all settings
+    Route::post('/update', [SettingController::class, 'update'])->name('settings.update'); // Update settings
+});
+
+// Roles routes
+Route::prefix('roles')->middleware('auth')->group(function () {
+    Route::get('/', [RoleController::class, 'index'])->name('roles.index');              // List all roles
+    Route::get('/create', [RoleController::class, 'create'])->name('role.create');      // Show form to create a role
+    Route::post('/', [RoleController::class, 'store'])->name('role.store');             // Store new role
+    Route::get('/{role}/edit', [RoleController::class, 'edit'])->name('role.edit');     // Show form to edit role
+    Route::put('/{role}', [RoleController::class, 'update'])->name('role.update');      // Update role
+    Route::delete('/{role}', [RoleController::class, 'destroy'])->name('role.destroy'); // Delete role
+});
+
+// Permissions routes
+Route::prefix('permissions')->middleware('auth')->group(function () {
+    Route::get('/', [PermissionController::class, 'index'])->name('permissions.index');                    // List all permissions
+    Route::get('/create', [PermissionController::class, 'create'])->name('permissions.create');            // Show form to create permission
+    Route::post('/', [PermissionController::class, 'store'])->name('permissions.store');                   // Store new permission
+    Route::get('/{permission}/edit', [PermissionController::class, 'edit'])->name('permissions.edit');     // Show form to edit permission
+    Route::put('/{permission}', [PermissionController::class, 'update'])->name('permissions.update');      // Update permission
+    Route::delete('/{permission}', [PermissionController::class, 'destroy'])->name('permissions.destroy'); // Delete permission
 });
