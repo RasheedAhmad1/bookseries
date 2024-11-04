@@ -91,7 +91,7 @@ class BookController extends Controller
             ['name' => 'Edit Book']
         ];
 
-        return view('book::books.editBook', [
+        return view('book::editBook', [
             'book' => $book,
             'statuses' => $statuses,
             'authors' => $authors,
