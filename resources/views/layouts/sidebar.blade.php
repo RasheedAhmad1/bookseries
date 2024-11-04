@@ -177,22 +177,22 @@
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="layouts-collapsed-menu.html" class="menu-link">
+                    <a href="{{ route('roles.index') }}" class="menu-link">
                         <div data-i18n="Roles">Roles</div>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="layouts-content-navbar.html" class="menu-link">
+                    <a href="#" class="menu-link">
                         <div data-i18n="Manages Access">Manages Access</div>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="layouts-content-navbar-with-sidebar.html" class="menu-link">
+                    <a href="#" class="menu-link">
                         <div data-i18n="Translations">Translations</div>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="layouts-content-navbar-with-sidebar.html" class="menu-link">
+                    <a href="#" class="menu-link">
                         <div data-i18n="Settings">Settings</div>
                     </a>
                 </li>
