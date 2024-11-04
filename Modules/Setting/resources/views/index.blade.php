@@ -1,7 +1,6 @@
 @extends('masterlayout.master')
 
 @push('content')
-    <!-- Draggable Cards -->
     <div class="row">
         <!-- Basic Breadcrumb -->
         <nav aria-label="breadcrumb">
@@ -10,16 +9,18 @@
                     <a href={{ route('home') }}>Home</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a href="{{ url('setting') }}">Setting</a>
+                    <a href="{{ url('settings') }}">Setting</a>
                 </li>
                 <li class="breadcrumb-item active">Dashboard</li>
             </ol>
         </nav>
-    </div>
+    </div><!--/ Basic Breadcrumb -->
+
+    <!-- Cards -->
     <div class="row gy-4" id="sortable-4">
         <div class="col-md-6 col-xl-4">
             <div class="card bg-primary text-white">
-                <div class="card-header cursor-move">Drag me!</div>
+                <div class="card-header cursor-move">Drag me not!</div>
                 <div class="card-body">
                     <h4 class="card-title text-white">Primary card title</h4>
                     <p class="card-text">Some quick example text to build on the card title and make up.</p>
@@ -71,6 +72,5 @@
                 </div>
             </div>
         </div>
-    </div>
-    <!--/ Draggable Cards -->
+    </div><!--/ Cards -->
 @endpush

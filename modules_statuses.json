@@ -1,5 +1,7 @@
 {
     "Book": true,
     "Setting": true,
-    "Test": true
+    "Test": true,
+    "Author": true,
+    "Comment": true
 }

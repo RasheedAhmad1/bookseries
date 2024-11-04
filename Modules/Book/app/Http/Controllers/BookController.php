@@ -5,7 +5,7 @@ namespace Modules\Book\App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Modules\Book\App\Models\Book;
-use Modules\Book\App\Models\Author;
+use Modules\Author\App\Models\Author;
 use Illuminate\Support\Facades\Crypt;
 
 class BookController extends Controller
@@ -31,7 +31,7 @@ class BookController extends Controller
             ['name' => 'Books']
         ];
 
-        return view('book::books.showBooks', [
+        return view('book::showBooks', [
             'books' => $books,
             'breadcrumbs' => $breadcrumbs
         ]);
@@ -49,7 +49,7 @@ class BookController extends Controller
             ['name' => 'New Book']
         ];
 
-        return view('book::books.addBook', [
+        return view('book::addBook', [
             'authors' => $authors,
             'statuses' => $statuses,
             'breadcrumbs' => $breadcrumbs
@@ -74,7 +74,7 @@ class BookController extends Controller
     {
         $decrypted_id = Crypt::decrypt($id);
         $book= Book::findOrFail($decrypted_id);
-        return view('book::books.show');
+        return view('book::show');
     }
 
     // Show the form for editing the specified resource.
@@ -121,7 +121,6 @@ class BookController extends Controller
         }
 
         $book->save();
-
         return redirect()->route('books.show')->with('success', 'Book updated successfully!');
     }
 
@@ -132,11 +131,6 @@ class BookController extends Controller
         $book = Book::find($decrypted_id);
         $book->delete();
 
-        if ($book) {
-            $book->delete();
-            return response()->json(['success' => 'Book deleted successfully.']);
-        } else {
-            return response()->json(['error' => 'Book not found.'], 404);
-        }
+        return redirect()->route('books.show')->with('success', 'Book deleted successfully!');
     }
 }

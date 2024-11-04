@@ -2,24 +2,28 @@
 
 namespace Modules\Setting\App\Http\Controllers;
 
+use Illuminate\Foundation\Validation\ValidatesRequests;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
-use DB;
-use Hash;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Crypt;
+
 class UserController extends Controller
 {
+    use ValidatesRequests;
+
     // Display a listing of the resource
     public function index()
     {
+        // dd('I am here');
         $data = User::latest()->paginate(5);
 
-        return view('setting::user.index',compact('data'))
-        ->with('i', ($request->input('page', 1) - 1) * 5);
+        return view('setting::user.index', compact('data'))
+        ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     // Show the form for creating a new resource
@@ -27,7 +31,7 @@ class UserController extends Controller
     {
         $roles = Role::pluck('name','name')->all();
 
-        return view('setting::user.create-user',compact('roles'));
+        return view('setting::user.create', compact('roles'));
     }
 
     // Store a newly created resource in storage
@@ -54,17 +58,19 @@ class UserController extends Controller
     {
         $user = User::find($id);
 
-        return view('setting::show',compact('user'));
+        // return view('setting::user.show',compact('user'));
     }
 
     // Show the form for editing the specified resource
     public function edit($id)
     {
-        $user = User::find($id);
+        $decrypted = Crypt::decrypt($id);
+
+        $user = User::find($decrypted);
         $roles = Role::pluck('name','name')->all();
         $userRole = $user->roles->pluck('name','name')->all();
 
-        return view('setting::users.edit',compact('user','roles','userRole'));
+        return view('setting::user.edit',compact('user','roles','userRole'));
     }
 
     // Update the specified resource in storage
@@ -97,6 +103,6 @@ class UserController extends Controller
     public function destroy($id)
     {
         User::find($id)->delete();
-        return redirect()->route('users.index')->with('success','User deleted successfully');
+        return redirect()->route('users.index')->with('danger','User deleted successfully');
     }
 }

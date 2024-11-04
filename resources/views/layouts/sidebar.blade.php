@@ -27,19 +27,18 @@
             </a>
             <ul class="menu-sub">
                 <li class="menu-item {{ request()->is('book/dashboard') ? 'active' : '' }}">
-                    <a href="/book/dashboard" class="menu-link">
+                    <a href="{{ route('book.dashboard') }}" class="menu-link">
                         {{-- <i class="fa-solid fa-book"></i> --}}
                         <div data-i18n="Dashboard">Dashboard</div>
                     </a>
                 </li>
                 <li class="menu-item {{ in_array(request()->path(), ['books', 'addbook', 'editbook/' . request('id'), 'deletebook/' . request('id')]) ? 'active' : '' }}">
-                    <a href="/books" class="menu-link">
-                        {{-- <i class="fa-solid fa-book"></i> --}}
+                    <a href="{{ route('books.show') }}" class="menu-link">
                         <div data-i18n="Books">Books</div>
                     </a>
                 </li>
                 <li class="menu-item {{ in_array(request()->path(), ['tests', 'addtest', 'edittest/' . request('id'), 'deletetest/' . request('id')]) ? 'active' : '' }}">
-                    <a href="/tests" class="menu-link">
+                    <a href="{{ route('tests.show') }}" class="menu-link">
                         <div data-i18n="Tests">Tests</div>
                     </a>
                 </li>
@@ -48,8 +47,8 @@
                         <div data-i18n="Authors">Authors</div>
                     </a>
                 </li>
-                <li class="menu-item {{ request()->is('') || request()->is('') ? 'active' : '' }}">
-                    <a href="dashboards-ecommerce.html" class="menu-link">
+                <li class="menu-item {{ in_array(request()->path(), ['comments', 'addcomment', 'editcomment/' . request('id'), 'deletecomment/' . request('id')]) ? 'active' : '' }}">
+                    <a href="{{ route('comments.show') }}" class="menu-link">
                         <div data-i18n="Comments">Comments</div>
                     </a>
                 </li>
@@ -167,23 +166,33 @@
             </a>
 
             <ul class="menu-sub">
+                <li class="menu-item {{ in_array(request()->path(), ['users', 'user.create', 'user.show', 'user.edit/' . request('id'), 'user.delete/' . request('id')]) ? 'active' : '' }}">
+                    <a href="{{ route('users.index') }}" class="menu-link">
+                        <div data-i18n="Users">Users</div>
+                    </a>
+                </li>
                 <li class="menu-item">
-                    <a href="layouts-collapsed-menu.html" class="menu-link">
+                    <a href="{{ route('permissions.index') }}" class="menu-link">
+                        <div data-i18n="Permissions">Permissions</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="{{ route('roles.index') }}" class="menu-link">
                         <div data-i18n="Roles">Roles</div>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="layouts-content-navbar.html" class="menu-link">
+                    <a href="#" class="menu-link">
                         <div data-i18n="Manages Access">Manages Access</div>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="layouts-content-navbar-with-sidebar.html" class="menu-link">
+                    <a href="#" class="menu-link">
                         <div data-i18n="Translations">Translations</div>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="layouts-content-navbar-with-sidebar.html" class="menu-link">
+                    <a href="#" class="menu-link">
                         <div data-i18n="Settings">Settings</div>
                     </a>
                 </li>
