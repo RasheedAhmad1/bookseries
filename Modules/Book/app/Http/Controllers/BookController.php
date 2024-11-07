@@ -12,29 +12,19 @@ class BookController extends Controller
 {
     public function index()
     {
-        $breadcrumbs = [
-            ['name' => 'Home', 'url' => route('home')],
-            ['name' => 'Dashboard']
-        ];
+
+        $books = Book::all();
+
         return view('book::index', [
-            'breadcrumbs' => $breadcrumbs
+            'books' => $books,
+
         ]);
     }
 
     // Display a listing of the resource.
-    public function showBooks()
+    public function dashboard()
     {
-        $books = Book::all();
-        $breadcrumbs = [
-            ['name' => 'Home', 'url' => route('home')],
-            ['name' => 'Dashboard', 'url' => route('book.dashboard')],
-            ['name' => 'Books']
-        ];
-
-        return view('book::showBooks', [
-            'books' => $books,
-            'breadcrumbs' => $breadcrumbs
-        ]);
+        return view('book::dashboard');
     }
 
     // Show the form for creating a new resource.
@@ -42,17 +32,10 @@ class BookController extends Controller
     {
         $authors = Author::all();
         $statuses = Book::statuses;
-        $breadcrumbs = [
-            ['name' => 'Home', 'url' => route('home')],
-            ['name' => 'Dashboard', 'url' => route('book.dashboard')],
-            ['name' => 'Books', 'url' => route('books.show')],
-            ['name' => 'New Book']
-        ];
 
-        return view('book::addBook', [
+        return view('book::create', [
             'authors' => $authors,
             'statuses' => $statuses,
-            'breadcrumbs' => $breadcrumbs
         ]);
     }
 
@@ -73,7 +56,7 @@ class BookController extends Controller
     public function show($id)
     {
         $decrypted_id = Crypt::decrypt($id);
-        $book= Book::findOrFail($decrypted_id);
+        $book = Book::findOrFail($decrypted_id);
         return view('book::show');
     }
 
@@ -128,9 +111,13 @@ class BookController extends Controller
     public function destroy($id)
     {
         $decrypted_id = Crypt::decrypt($id);
-        $book = Book::find($decrypted_id);
-        $book->delete();
+        $book = Book::findOrFail($decrypted_id);
 
-        return redirect()->route('books.show')->with('success', 'Book deleted successfully!');
+        if ($book) {
+            $book->delete();
+            return response()->json(['success' => 'Book deleted successfully.']);
+        } else {
+            return response()->json(['error' => 'Book not found.'], 404);
+        }
     }
 }

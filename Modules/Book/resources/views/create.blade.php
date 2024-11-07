@@ -2,31 +2,30 @@
 @push('content')
     <!-- Dynamic Breadcrumb -->
     <div class="row">
+        <!-- Basic Breadcrumb -->
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                @foreach ($breadcrumbs as $breadcrumb)
-                    @if (!$loop->last)
-                        <!-- Linkes for items-->
-                        <li class="breadcrumb-item anchor-link">
-                            <a href="{{ $breadcrumb['url'] }}">{{ $breadcrumb['name'] }}</a>
-                        </li>
-                    @else
-                        <!-- Active last item but not a link -->
-                        <li class="breadcrumb-item active text-primary" aria-current="page">{{ $breadcrumb['name'] }}</li>
-                    @endif
-                @endforeach
+                <li class="breadcrumb-item">
+                    <a href={{ route('home') }}>Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{{ url('books') }}">Book</a>
+                </li>
+
+                <li class="breadcrumb-item active text-primary">New book</li>
             </ol>
         </nav>
-    </div><!--/ Dynamic Breadcrumb -->
+    </div>
+    <!--/ Dynamic Breadcrumb -->
 
     <!--Form -->
     <div class="row">
         <div class="col-xxl">
             <div class="card mb-4">
                 <div class="card-header col-md-12 d-flex justify-content-between align-items-center">
-                    <h5 class="card-header text-primary">New Book</h5>
+                    <h5 class="card-header text-primary"># New Book</h5>
                 </div>
-                <hr class="my-4 mx-n4">
+                <div class="menu-divider mb-4"></div>
                 <form action="{{ route('book.store') }}" method="POST" class="card-body" enctype="multipart/form-data">
                     @csrf
 
@@ -140,7 +139,7 @@
                         </div>
                     </div>
 
-                    <hr class="my-4 mx-n4">
+                    <hr class="my-4 mx-1">
                     {{-- Add book button --}}
                     <div class="card-footer col-md-12 d-flex justify-content-center align-items-center">
                         <button type="submit" class="btn btn-primary">Save</button>

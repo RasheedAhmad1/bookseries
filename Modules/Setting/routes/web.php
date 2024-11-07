@@ -17,11 +17,11 @@ use Modules\Setting\App\Http\Controllers\PermissionController;
 Route::prefix('users')->middleware('auth')->group(function () {
     Route::get('/', [UserController::class, 'index'])->name('users.index');          // List all users
     Route::get('/create', [UserController::class, 'create'])->name('user.create');   // Create a users
-    Route::get('/store', [UserController::class, 'store'])->name('user.store');      // Store a user
+    Route::post('/store', [UserController::class, 'store'])->name('user.store');      // Store a user
     Route::get('/show', [UserController::class, 'show'])->name('user.show');         // Show a user
-    Route::get('/{user}/edit', [UserController::class, 'edit'])->name('user.edit');  // Edit a user
-    Route::put('/{user}', [UserController::class, 'update'])->name('user.update');   // Update user
-    Route::put('/{user}', [UserController::class, 'destroy'])->name('user.destroy'); // Delete user
+    Route::get('/edit-user/{id}', [UserController::class, 'edit'])->name('user.edit');  // Edit a user
+    Route::post('/update-user/{id}', [UserController::class, 'update'])->name('user.update');   // Update user
+    Route::delete('/delete-user/{id}', [UserController::class, 'destroy'])->name('user.delete');
 });
 
 // Settings routes
