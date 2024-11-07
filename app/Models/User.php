@@ -5,7 +5,6 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
-
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -16,17 +15,18 @@ class User extends Authenticatable
 
     // The User model requires this trait
     use HasRoles;
+    public const gender = [
+        0 => 'Non Active',
+        1 => 'Active',
+    ];
+
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $fillable = ['name', 'email', 'phone', 'cnic', 'gender', 'country', 'province', 'district', 'professional', 'address', 'password'];
 
     /**
      * The attributes that should be hidden for serialization.
