@@ -1,72 +1,167 @@
-@extends('masterlayout.master')
-
+@extends('masterLayout.master')
 @push('content')
+    <!-- Dynamic Breadcrumb -->
+    {{-- <div class="row">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                @foreach ($breadcrumbs as $breadcrumb)
+                    @if (!$loop->last)
+                        <!-- Linkes for items-->
+                        <li class="breadcrumb-item anchor-link">
+                            <a href="{{ $breadcrumb['url'] }}">{{ $breadcrumb['name'] }}</a>
+                        </li>
+                    @else
+                        <!-- Active last item but not a link -->
+                        <li class="breadcrumb-item active link-primary" aria-current="page">{{ $breadcrumb['name'] }}
+                        </li>
+                    @endif
+                @endforeach
+            </ol>
+        </nav>
+    </div> --}}
+    <!-- End of Dynamic Breadcrumb -->
+
+    <!--Form -->
     <div class="row">
-        <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
-                <h2>Edit User</h2>
-            </div>
-            <div class="pull-right">
-                <a class="btn btn-primary btn-sm mb-2" href="{{ route('users.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
+        <div class="col-xxl">
+            <div class="card mb-4">
+                <div class="card-header col-md-12 d-flex justify-content-between align-items-center">
+                    <h5 class="card-header text-primary">Edit user</h5>
+                </div>
+                <hr class="my-1 mx-1">
+                @php
+                    $encrypted_id = Crypt::encrypt($user->id);
+                @endphp
+                <form action="{{ route('user.update', $encrypted_id) }}" method="POST" class="card-body">
+                    @csrf
+
+
+                    {{-- user name --}}
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label text-sm-end" for="alignment-username">Name</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="name" id="alignment-username" class="form-control"
+                                value="{{ old('name', $user->name) }}" />
+                        </div>
+                    </div>
+
+                    {{-- user email --}}
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label text-sm-end" for="alignment-username">Email</label>
+                        <div class="col-sm-8">
+                            <input type="email" name="email" id="alignment-username" class="form-control"
+                                value="{{ old('email', $user->email) }}" />
+                        </div>
+                    </div>
+
+                    {{-- user password --}}
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label text-sm-end" for="alignment-username">Password</label>
+                        <div class="col-sm-8">
+                            <input type="password" name="password" id="alignment-password" class="form-control"
+                                placeholder="Enter new password or (leave it blank)">
+                        </div>
+                    </div>
+
+
+                    {{-- Phone number --}}
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label text-sm-end" for="alignment-phone">Phone No.</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="phone" id="alignment-phone" class="form-control"
+                                value="{{ old('phone', $user->phone) }}" />
+                        </div>
+                    </div>
+
+                    {{-- CNIC --}}
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label text-sm-end" for="alignment-CNIC">CNIC</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="cnic" id="alignment-cnic" class="form-control"
+                                value="{{ old('cnic', $user->cnic) }}" />
+                        </div>
+                    </div>
+
+                    {{-- Gender --}}
+                    <div class="row mb-3">
+                        <label for="Gender" class="col-sm-2 col-form-label text-sm-end">Gender</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="gender" id="alignment-gender" class="form-control"
+                                value="{{ old('gender', $user->gender) }}" />
+                        </div>
+                    </div>
+
+                    {{-- Country --}}
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label text-sm-end" for="alignment-username">Country</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="country" id="alignment-country" class="form-control"
+                                value="{{ old('country', $user->country) }}" />
+                        </div>
+                    </div>
+
+
+                    {{-- Province --}}
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label text-sm-end" for="alignment-username">Province</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="province" id="alignment-province" class="form-control"
+                                value="{{ old('province', $user->province) }}" />
+                        </div>
+                    </div>
+
+                    {{-- District --}}
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label text-sm-end" for="alignment-district">District</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="district" id="alignment-district" class="form-control"
+                                value="{{ old('district', $user->district) }}" />
+                        </div>
+                    </div>
+
+                    {{-- Porfessional --}}
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label text-sm-end" for="alignment-address">Professional
+                        </label>
+                        <div class="col-sm-8">
+                            <input type="text" name="professional" id="alignment-professional" class="form-control"
+                                value="{{ old('professional', $user->professional) }}" />
+                        </div>
+                    </div>
+
+                    {{-- Address --}}
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label text-sm-end" for="alignment-professional">Address
+                        </label>
+                        <div class="col-sm-8">
+                            <input type="text" name="address" id="alignment-address" class="form-control"
+                                value="{{ old('address', $user->address) }}" />
+                        </div>
+                    </div>
+
+
+
+                    {{-- user role --}}
+                    {{-- <div class="row mb-3">
+                        <label for="defaultSelect" class="col-sm-2 col-form-label text-sm-end">Role</label>
+                        <div class="col-sm-8">
+                            <select id="defaultSelect" name="roles[]" class="form-select">
+                                @foreach ($roles as $value => $label)
+                                    <option value="{{ $value }}" {{ isset($userRole[$value]) ? 'selected' : '' }}>
+                                        {{ $label }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div> --}}
+
+                    {{-- Add user button --}}
+                    <hr class="my-1 mx-1">
+                    <div class="card-footer col-md-12 d-flex justify-content-center align-items-center">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-
-    @if (count($errors) > 0)
-        <div class="alert alert-danger">
-            <strong>Whoops!</strong> There were some problems with your input.<br><br>
-            <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-    <form method="POST" action="{{ route('user.update', $user->id) }}">
-        @csrf
-        @method('PUT')
-
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Name:</strong>
-                    <input type="text" name="name" placeholder="Name" class="form-control" value="{{ $user->name }}">
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Email:</strong>
-                    <input type="email" name="email" placeholder="Email" class="form-control" value="{{ $user->email }}">
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Password:</strong>
-                    <input type="password" name="password" placeholder="Password" class="form-control">
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Confirm Password:</strong>
-                    <input type="password" name="confirm-password" placeholder="Confirm Password" class="form-control">
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Role:</strong>
-                    <select name="roles[]" class="form-control" multiple="multiple">
-                        @foreach ($roles as $value => $label)
-                            <option value="{{ $value }}" {{ isset($userRole[$value]) ? 'selected' : ''}}>
-                                {{ $label }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                <button type="submit" class="btn btn-primary btn-sm mt-2 mb-3"><i class="fa-solid fa-floppy-disk"></i> Save</button>
-            </div>
-        </div>
-    </form>
 @endpush

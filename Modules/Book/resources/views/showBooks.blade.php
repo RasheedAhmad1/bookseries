@@ -4,22 +4,21 @@
 @push('content')
     <!-- Dynamic Breadcrumb -->
     <div class="row">
+        <!-- Basic Breadcrumb -->
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                @foreach ($breadcrumbs as $breadcrumb)
-                    @if (!$loop->last)
-                        <!-- Linkes for items-->
-                        <li class="breadcrumb-item">
-                            <a href="{{ $breadcrumb['url'] }}" class="anchor-link">{{ $breadcrumb['name'] }}</a>
-                        </li>
-                    @else
-                        <!-- Active last item but not a link -->
-                        <li class="breadcrumb-item active link-primary" aria-current="page">{{ $breadcrumb['name'] }}</li>
-                    @endif
-                @endforeach
+                <li class="breadcrumb-item">
+                    <a href={{ route('home') }}>Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{{ url('book/dashboard') }}">Dashboard</a>
+                </li>
+
+                <li class="breadcrumb-item active text-primary">Books</li>
             </ol>
         </nav>
-    </div><!--/ Dynamic Breadcrumb -->
+    </div>
+    <!--/ Dynamic Breadcrumb -->
 
     <!-- Table -->
     <div class="row">
@@ -36,9 +35,10 @@
                 @endif
 
                 <div class="card-header col-md-12 d-flex justify-content-between align-items-center">
-                    <h5 class="card-header text-primary">Books</h5>
-                    <a href="{{ route('book.create') }}" class="btn btn-primary">Add Book</a>
+                    <h5 class="card-header text-primary"># Books</h5>
+                    <a href="{{ route('book.create') }}" class="btn btn-primary">+ New Book</a>
                 </div>
+                <div class="menu-divider mb-4"></div>
                 <div class="table-responsive text-nowrap card-body">
                     <table class="table">
                         <thead class="table-light">
@@ -58,7 +58,7 @@
                                     <td>{{ $book->author->name }}</td>
                                     <td>{{ $book->price }}</td>
                                     @php
-                                        $id = Crypt::encrypt($book->id)
+                                        $id = Crypt::encrypt($book->id);
                                     @endphp
                                     <td>
                                         <div class="dropdown">
@@ -70,7 +70,7 @@
                                                 <a class="dropdown-item" href="{{ url('editbook/' . $id) }}"><i
                                                         class="bx bx-edit-alt me-1"></i> Edit</a>
                                                 <button type="button" class="dropdown-item deletebtn"
-                                                    onclick="deleteBook({{ $book->$id }})">
+                                                    onclick="deleteBook('{{ $id }}')">
                                                     <i class="bx bx-trash me-1"></i> Delete
                                                 </button>
                                             </div>
