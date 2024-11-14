@@ -1,9 +1,12 @@
 @extends('masterLayout.master')
+
+{{-- Custom CSS --}}
 @push('style')
 @endpush
+
 @push('content')
     <!-- Dynamic Breadcrumb -->
-    {{-- <div class="row">
+    <div class="row">
         <!-- Basic Breadcrumb -->
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -17,7 +20,7 @@
                 <li class="breadcrumb-item active text-primary">Books</li>
             </ol>
         </nav>
-    </div> --}}
+    </div>
     <!--/ Dynamic Breadcrumb -->
 
     <!-- Table -->
@@ -35,13 +38,13 @@
                 @endif
 
                 <div class="card-header col-md-12 d-flex justify-content-between align-items-center">
-                    <h5 class="card-header text-primary"># Books</h5>
-                    <a href="{{ route('book.create') }}" class="btn btn-primary">+ New Book</a>
+                    <h5 class="card-header text-primary">Book - </h5>
+                    <a href="" class="btn btn-primary">Sections</a>
                 </div>
                 <div class="menu-divider mb-4"></div>
                 <div class="table-responsive text-nowrap card-body">
                     <table class="table">
-                        <thead class="table-light">
+                        {{-- <thead class="table-light">
                             <tr>
                                 <th>S. No.</th>
                                 <th>Title</th>
@@ -67,11 +70,7 @@
                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="{{ route('book.show', $id) }}">
-                                                    <i class="bx bx-show-alt me-1"></i>
-                                                    Show
-                                                </a>
-                                                <a class="dropdown-item" href="{{ route('book.edit', $id)}}">
+                                                <a class="dropdown-item" href="{{ url('editbook/' . $id) }}">
                                                     <i class="bx bx-edit-alt me-1"></i>
                                                     Edit
                                                 </a>
@@ -84,7 +83,7 @@
                                     </td>
                                 </tr>
                             @endforeach
-                        </tbody>
+                        </tbody> --}}
                     </table>
                 </div>
             </div>

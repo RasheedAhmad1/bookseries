@@ -2,14 +2,16 @@
 
 namespace Modules\Book\App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Author\App\Models\Author;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\HasMedia;
+use App\Models\UserPrivilege;
 
 class Book extends Model implements HasMedia
 {
-    use InteractsWithMedia;
+    use InteractsWithMedia, HasFactory;
 
     public const statuses = [
         1 => 'Available',
@@ -25,5 +27,10 @@ class Book extends Model implements HasMedia
     public function author()
     {
         return $this->belongsTo(Author::class);
+    }
+
+    public function privileges()
+    {
+        return $this->morphMany(UserPrivilege::class, 'privilegeable');
     }
 }

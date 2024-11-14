@@ -12,7 +12,6 @@ class BookController extends Controller
 {
     public function index()
     {
-
         $books = Book::all();
 
         return view('book::index', [
@@ -55,9 +54,19 @@ class BookController extends Controller
     // Show the specified resource.
     public function show($id)
     {
+        // $user = auth()->user();
+
+        // // Check if the user has access to this book
+        // if (!$user->hasPrivilegeFor($book)) {
+        //     abort(403, 'Unauthorized access to this book.');
+        // }
+
         $decrypted_id = Crypt::decrypt($id);
         $book = Book::findOrFail($decrypted_id);
-        return view('book::show');
+
+        return view('book::show', [
+            'book' => $book
+        ]);
     }
 
     // Show the form for editing the specified resource.
@@ -67,18 +76,11 @@ class BookController extends Controller
         $book = Book::findOrFail($decrypted_id);
         $statuses = Book::statuses;
         $authors = Author::all();
-        $breadcrumbs = [
-            ['name' => 'Home', 'url' => route('home')],
-            ['name' => 'Dashboard', 'url' => route('book.dashboard')],
-            ['name' => 'Books', 'url' => route('books.show')],
-            ['name' => 'Edit Book']
-        ];
 
         return view('book::editBook', [
             'book' => $book,
             'statuses' => $statuses,
-            'authors' => $authors,
-            'breadcrumbs' => $breadcrumbs
+            'authors' => $authors
         ]);
     }
 
