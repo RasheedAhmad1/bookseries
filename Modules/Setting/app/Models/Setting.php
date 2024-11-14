@@ -14,9 +14,9 @@ class Setting extends Model
      * The attributes that are mass assignable.
      */
     protected $fillable = [];
-    
-    protected static function newFactory(): SettingFactory
-    {
-        //return SettingFactory::new();
-    }
+
+    // protected static function newFactory(): SettingFactory
+    // {
+    //     //return SettingFactory::new();
+    // }
 }
