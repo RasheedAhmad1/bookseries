@@ -1,13 +1,6 @@
+{{-- @extends('book::layouts.master') --}}
 @extends('masterLayout.master')
-@push('style')
-    <style>
-        .ck-editor__editable_inline {
 
-            min-height: 300px;
-
-        }
-    </style>
-@endpush
 @push('content')
     <!-- Dynamic Breadcrumb -->
     <div class="row">
@@ -18,10 +11,10 @@
                     <a href={{ route('home') }}>Home</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a href="{{ url('books') }}">Book</a>
+                    <a href="{{ url('books') }}">Books</a>
                 </li>
 
-                <li class="breadcrumb-item active text-primary">New book</li>
+                <li class="breadcrumb-item active text-primary">Edit Book</li>
             </ol>
         </nav>
     </div>
@@ -33,29 +26,27 @@
             <div class="card mb-4">
                 <div class="card-header col-md-12 d-flex justify-content-between align-items-center">
                     <h5 class="card-header text-primary">
-                        <li class="fa fa-align-justify"></li> New Book
+                        <li class="fa fa-align-justify"></li> Edit Book
                     </h5>
                 </div>
                 <div class="menu-divider mb-4"></div>
-                <form action="{{ route('book.store') }}" method="POST" class="card-body" enctype="multipart/form-data">
+                <form action="{{ url('update-book', $book->id) }}" method="POST" class="card-body"
+                    enctype="multipart/form-data">
                     @csrf
-
                     {{-- Title --}}
                     <div class="row mb-3">
                         <div class="col-sm-6">
                             <label class=" col-form-label text-sm-end" for="title">Title</label>
                             <input type="text" name="title" id="alignment-username" class="form-control"
-                                placeholder="Enter book title" />
+                                value="{{ old('title', $book->title) }}" />
                         </div>
 
-
-                        {{-- Author --}}
                         <div class="col-sm-6">
                             <label for="defaultSelect" class="col-form-label text-sm-end">Author Name</label>
                             <select id="defaultSelect" name="author_id" class="form-select">
-                                <option value="">Select author</option>
                                 @foreach ($authors as $author)
-                                    <option value="{{ $author->id }}">
+                                    <option value="{{ $author->id }}"
+                                        {{ old('author_id', $book->author_id) == $author->id ? 'selected' : ' ' }}>
                                         {{ $author->name }}
                                     </option>
                                 @endforeach
@@ -63,40 +54,20 @@
                         </div>
                     </div>
 
-
                     <div class="row mb-3">
                         {{-- Price --}}
                         <div class="col-sm-6">
                             <label class="col-form-label text-sm-end" for="alignment-username">Price</label>
                             <input type="text" name="price" id="alignment-username" class="form-control"
-                                placeholder="0.0" />
+                                value="{{ old('price', $book->price) }}" />
                         </div>
 
-
-                        {{-- online Amount --}}
+                        {{-- Online Amount --}}
                         <div class="col-sm-6">
                             <label class="col-form-label text-sm-end" for="alignment-username">Online Amount</label>
                             <input type="text" name="online_amount" id="alignment-username" class="form-control"
-                                placeholder="0.0" />
+                                value="{{ old('online_amount', $book->online_amount) }}" />
                         </div>
-
-                        {{-- Shipping Charges --}}
-                        <div class="col-sm-6">
-                            <label class="col-form-label text-sm-end" for="alignment-username">Shipping Charges</label>
-                            <input type="text" name="ship_amount" id="alignment-username" class="form-control"
-                                placeholder="Enter shiping charges" />
-                        </div>
-
-
-                        {{-- Order --}}
-                        <div class="col-sm-6">
-                            <label class="col-form-label text-sm-end" for="alignment-order">Order No.</label>
-                            <input type="text" name="orderNo" id="alignment-username" class="form-control"
-                                placeholder="Order no." />
-                        </div>
-
-
-
                     </div>
 
                     <div class="row mb-3">
@@ -104,38 +75,48 @@
                         <div class="col-sm-6">
                             <label class="col-form-label text-sm-end" for="alignment-username">Shipping Charges</label>
                             <input type="text" name="ship_amount" id="alignment-username" class="form-control"
-                                placeholder="Enter shiping charges" />
+                                value="{{ old('ship_amount', $book->ship_amount) }}" />
                         </div>
-
-                        {{-- Order --}}
+                        {{-- Status --}}
                         <div class="col-sm-6">
                             <label class="col-form-label text-sm-end" for="alignment-order">Order No.</label>
                             <input type="text" name="orderNo" id="alignment-username" class="form-control"
-                                placeholder="Order no." />
+                                value="{{ old('orderNo', $book->orderNo) }}" />
+
                         </div>
                     </div>
 
-                    {{-- status --}}
                     <div class="row mb-3">
+                        {{-- Order --}}
                         <div class="col-sm-12">
                             <label for="status" class="col-form-label text-sm-end">Availibility Status</label>
-                            <select id="status" name="status" class="form-select">
-                                <option value="">Select status</option>
+                            <select id="defaultSelect" name="status" class="form-select">
+                                <option>Select status</option>
                                 @foreach ($statuses as $key => $value)
-                                    <option value="{{ $key }}">
+                                    <option value="{{ $key }}"
+                                        {{ old('status', $book->status) == $key ? 'selected' : ' ' }}>
                                         {{ $value }}
                                     </option>
                                 @endforeach
                             </select>
                         </div>
-                    </div>
 
+                        {{-- Image file
+                        <div class="col-sm-6">
+                            <div id="app">
+                                <file-uploader :media="{{ $book->getMediaResource('images') }}" :unlimited="true"
+                                    collection="images" :tokens="{{ json_encode(old('media', [])) }}" label="Upload Images"
+                                    notes="Supported types: jpeg, png,jpg,gif"
+                                    accept="image/jpeg,image/png,image/jpg,image/gif"></file-uploader>
+                            </div>
+                        </div> --}}
+                    </div>
 
                     {{-- Description --}}
                     <div class="row mb-3 mt-5">
                         <div class="col-sm-12">
                             <label class="col-form-label text-sm-end" for="alignment-publisher">Description</label>
-                            <textarea type="text" name="description" id="editor" class="form-control" placeholder="Enter book description"></textarea>
+                            <textarea type="text" name="description" id="editor" class="form-control" placeholder="Enter book description">{{ old('description', $book->description) }}</textarea>
                         </div>
                     </div>
 
@@ -143,8 +124,8 @@
                     <div class="row mb-3 mt-3">
                         <div class="col-sm-12">
                             <div id="app">
-                                <file-uploader :unlimited="true" collection="images"
-                                    :tokens="{{ json_encode(old('media', [])) }}" label="Upload Images"
+                                <file-uploader :media="{{ $book->getMediaResource('images') }}" :unlimited="true"
+                                    collection="images" :tokens="{{ json_encode(old('media', [])) }}" label="Upload Images"
                                     notes="Supported types: jpeg, png,jpg,gif"
                                     accept="image/jpeg,image/png,image/jpg,image/gif"></file-uploader>
                             </div>
