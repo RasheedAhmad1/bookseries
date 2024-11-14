@@ -14,11 +14,8 @@ use Illuminate\Support\Facades\Crypt;
 class RoleController extends Controller
 {
     use ValidatesRequests;
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
+    // Display a listing of the resource
     // function __construct()
     // {
     //      $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index','store']]);
@@ -27,11 +24,7 @@ class RoleController extends Controller
     //      $this->middleware('permission:role-delete', ['only' => ['destroy']]);
     // }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    // Display a listing of the resource
     public function index(Request $request): View
     {
         $roles = Role::orderBy('id','DESC')->paginate(5);
@@ -44,11 +37,7 @@ class RoleController extends Controller
         // ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    // Show the form for creating a new resource
     public function create(): View
     {
         $permission = Permission::get();
@@ -57,37 +46,27 @@ class RoleController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    // Store a newly created resource in storage
     public function store(Request $request): RedirectResponse
     {
-        // $this->validate($request, [
-        //     'name' => 'required|unique:roles,name',
-        //     'permission' => 'required',
-        // ]);
+        $this->validate($request, [
+            'name' => 'required|unique:roles,name',
+            'permission' => 'required',
+        ]);
 
-        // $permissionsID = array_map(
-        //     function($value) { return (int)$value; },
-        //     $request->input('permission')
-        // );
+        $permissionsID = array_map(
+            function($value) { return (int)$value; },
+            $request->input('permission')
+        );
 
-        // $role = Role::create(['name' => $request->input('name')]);
-        $role = Role::create($request->all());
-        // $role->syncPermissions($permissionsID);
+        $role = Role::create(['name' => $request->input('name')]);
+        // $role = Role::create($request->all());
+        $role->syncPermissions($permissionsID);
 
         return redirect()->route('roles.index')
                         ->with('success','Role created successfully');
     }
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // Display the specified resource
     public function show($id): View
     {
         $role = Role::find($id);
@@ -98,12 +77,7 @@ class RoleController extends Controller
         return view('roles.show',compact('role','rolePermissions'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // Show the form for editing the specified resource
     public function edit($id): View
     {
         $decrypted_id = Crypt::decrypt($id);
@@ -120,13 +94,7 @@ class RoleController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // Update the specified resource in storage
     public function update(Request $request, $id): RedirectResponse
     {
         // $this->validate($request, [
@@ -150,12 +118,7 @@ class RoleController extends Controller
         return redirect()->route('roles.index')
                         ->with('success','Role updated successfully');
     }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // Remove the specified resource from storage
     public function destroy($id)
     {
         $decrypted_id = Crypt::decrypt($id);
