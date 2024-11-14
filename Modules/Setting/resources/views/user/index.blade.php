@@ -125,9 +125,14 @@
                 @endif
 
                 <div class="card-header col-md-12 d-flex justify-content-between align-items-center">
-                    <h5 class="card-header text-primary">Users</h5>
+
+                    <h5 class="card-header text-primary">
+                        <li class="fa fa-align-justify"></li> Users
+                    </h5>
+
                     <a href="{{ route('user.create') }}" class="btn btn-primary">+ New User</a>
                 </div>
+                <div class="menu-divider mb-4"></div>
                 <div class="table-responsive text-nowrap card-body">
                     <table class="table">
                         <thead class="table-light">
