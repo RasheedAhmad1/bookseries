@@ -20,6 +20,12 @@
 
     <ul class="menu-inner py-1">
         <!-- Content -->
+        <li class="menu-item {{ request()->is('books/dashboard') ? 'active' : '' }}">
+            <a href="{{ route('books.dashboard') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-layout"></i>
+                <div data-i18n="Dashboard"> Dashboard</div>
+            </a>
+        </li>
         <li class="menu-item active open">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-layout"></i>
@@ -41,6 +47,12 @@
                         </a>
                     </li>
                 {{-- @endcan --}}
+                <li
+                    class="menu-item {{ in_array(request()->path(), ['books', 'create', 'editbook/' . request('id'), 'deletebook/' . request('id')]) ? 'active' : '' }}">
+                    <a href="{{ route('books.show') }}" class="menu-link">
+                        <div data-i18n="Books"> Books</div>
+                    </a>
+                </li>
                 <li
                     class="menu-item {{ in_array(request()->path(), ['tests', 'addtest', 'edittest/' . request('id'), 'deletetest/' . request('id')]) ? 'active' : '' }}">
                     <a href="{{ route('tests.show') }}" class="menu-link">

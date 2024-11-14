@@ -2,18 +2,16 @@
 @push('content')
     <div class="row">
         <!-- Basic Breadcrumb -->
-        {{-- <nav aria-label="breadcrumb">
+        <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
                     <a href={{ route('home') }}>Home</a>
                 </li>
-                <li class="breadcrumb-item">
-                    <a href="{{ url('book') }}">Book</a>
-                </li>
-                <li class="breadcrumb-item active">Dashboard</li>
+                <li class="breadcrumb-item active text-primary">Dashboard</li>
             </ol>
-        </nav> --}}
-    </div><!--/ Basic Breadcrumb -->
+        </nav>
+        <!--/ Basic Breadcrumb -->
+    </div>
 
     <!-- Cards -->
     <div class="row gy-4" id="sortable-4">
