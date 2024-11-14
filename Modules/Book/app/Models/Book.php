@@ -6,17 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 use Modules\Author\App\Models\Author;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\HasMedia;
+use AhmedAliraqi\LaravelMediaUploader\Entities\Concerns\HasUploader;
 
 class Book extends Model implements HasMedia
 {
-    use InteractsWithMedia;
+    use InteractsWithMedia, HasUploader;
 
     public const statuses = [
-        1 => 'Available',
-        2 => 'Unavailable',
-        3 => 'Purchased',
-        4 => 'Rented',
-        5 => 'Returned'
+        1 => 'Draft Book',
+        2 => 'Show Book',
+
 
     ];
 

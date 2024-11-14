@@ -23,8 +23,10 @@ class RolesAndPermissionsSeeder extends Seeder
         $writerRole = Role::firstOrCreate(['name' => 'writer', 'guard_name' => 'web']);
         $adminRole = Role::firstOrCreate(['name' => 'admin', 'guard_name' => 'web']);
 
-        // Assign permissions to roles 
+        // Assign permissions to roles
         $writerRole->givePermissionTo('edit books');
         $adminRole->givePermissionTo(['edit books', 'delete books', 'publish books']);
+
+        
     }
 }

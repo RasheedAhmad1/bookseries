@@ -11,20 +11,20 @@ class CommentController extends Controller
 {
     public function index()
     {
-        return view('comment::index');
-    }
-
-    // Display a listing of the resource.
-    public function showComments()
-    {
         $comments = Comment::all();
         $statuses = Comment::statuses;
 
-        return view('comment::showComments', [
+        return view('comment::index', [
             'comments' => $comments,
             'statuses' => $statuses
         ]);
     }
+
+    // // Display a listing of the resource.
+    // public function showComments()
+    // {
+
+    // }
 
     // Show the form for creating a new resource.
     public function create()
@@ -32,7 +32,7 @@ class CommentController extends Controller
         $authors = Comment::all();
         $statuses = Comment::statuses;
 
-        return view('comment::addComment', [
+        return view('comment::create', [
             'authors' => $authors,
             'statuses' => $statuses
         ]);
@@ -46,13 +46,13 @@ class CommentController extends Controller
         return redirect()->route('comments.show')->with('success', 'Comment added successfully!');
     }
 
-    // Show the specified resource.
-    public function show($id)
-    {
-        $decrypted_id = Crypt::decrypt($id);
-        $comment= Comment::findOrFail($decrypted_id);
-        return view('comment::show');
-    }
+    // // Show the specified resource.
+    // public function show($id)
+    // {
+    //     $decrypted_id = Crypt::decrypt($id);
+    //     $comment = Comment::findOrFail($decrypted_id);
+    //     return view('comment::show');
+    // }
 
     // Show the form for editing the specified resource.
     public function edit($id)
@@ -61,7 +61,7 @@ class CommentController extends Controller
         $comment = Comment::findOrFail($decrypted_id);
         $statuses = Comment::statuses;
 
-        return view('comment::editComment', [
+        return view('comment::edit', [
             'comment' => $comment,
             'statuses' => $statuses
         ]);
@@ -87,8 +87,12 @@ class CommentController extends Controller
     {
         $decrypted_id = Crypt::decrypt($id);
         $comment = Comment::find($decrypted_id);
-        $comment->delete();
+        if ($comment) {
+            $comment->delete();
 
-        return redirect()->route('comments.show')->with('danger', 'Comment deleted successfully!');
+            return response()->json(['success' => 'Comment deleted successfully']);
+        } else {
+            return response()->json(['error' => 'Comment not found.'], 404);
+        }
     }
 }

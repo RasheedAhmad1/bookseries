@@ -25,9 +25,11 @@
         <div class="col-xxl">
             <div class="card mb-4">
                 <div class="card-header col-md-12 d-flex justify-content-between align-items-center">
-                    <h5 class="card-header text-primary">New User</h5>
+                    <h5 class="card-header text-primary">
+                        <li class="fa fa-align-justify"></li> New User
+                    </h5>
                 </div>
-                <hr class="my-4 mx-n4">
+                <div class="menu-divider mb-4"></div>
                 <form action="{{ route('user.store') }}" method="POST" class="card-body">
                     @csrf
 

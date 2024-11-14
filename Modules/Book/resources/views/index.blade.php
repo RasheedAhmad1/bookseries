@@ -3,7 +3,7 @@
 @endpush
 @push('content')
     <!-- Dynamic Breadcrumb -->
-    {{-- <div class="row">
+    <div class="row">
         <!-- Basic Breadcrumb -->
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -17,7 +17,7 @@
                 <li class="breadcrumb-item active text-primary">Books</li>
             </ol>
         </nav>
-    </div> --}}
+    </div>
     <!--/ Dynamic Breadcrumb -->
 
     <!-- Table -->
@@ -35,7 +35,9 @@
                 @endif
 
                 <div class="card-header col-md-12 d-flex justify-content-between align-items-center">
-                    <h5 class="card-header text-primary"># Books</h5>
+                    <h5 class="card-header text-primary">
+                        <li class="fa fa-align-justify"></li> Books
+                    </h5>
                     <a href="{{ route('book.create') }}" class="btn btn-primary">+ New Book</a>
                 </div>
                 <div class="menu-divider mb-4"></div>
@@ -67,7 +69,7 @@
                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="{{ url('editbook/' . $id) }}"><i
+                                                <a class="dropdown-item" href="{{ url('edit-book/' . $id) }}"><i
                                                         class="bx bx-edit-alt me-1"></i> Edit</a>
                                                 <button type="button" class="dropdown-item deletebtn"
                                                     onclick="deleteBook('{{ $id }}')">

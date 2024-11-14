@@ -13,15 +13,10 @@ class AuthorController extends Controller
     public function index()
     {
         $authors = Author::all();
-        $breadcrumbs = [
-            ['name' => 'Home', 'url' => route('home')],
-            ['name' => 'Dashboard', 'url' => route('book.dashboard')],
-            ['name' => 'Authors']
 
-        ];
         return view('author::showAuthors', [
             'authors' => $authors,
-            'breadcrumbs' => $breadcrumbs
+
         ]);
     }
 
@@ -29,16 +24,9 @@ class AuthorController extends Controller
     public function create()
     {
         $authors = Author::all();
-        $breadcrumbs = [
-            ['name' => 'Home', 'url' => route('home')],
-            ['name' => 'Dashboard', 'url' => route('book.dashboard')],
-            ['name' => 'Authors', 'url' => route('authors.show')],
-            ['name' => 'New Author']
 
-        ];
-        return view('author::addAuthor', [
+        return view('author::create', [
             'authors' => $authors,
-            'breadcrumbs' => $breadcrumbs
         ]);
     }
 
@@ -53,7 +41,7 @@ class AuthorController extends Controller
     public function show($id)
     {
         $decrypted_id = Crypt::decrypt($id);
-        $author= Author::findOrFail($decrypted_id);
+        $author = Author::findOrFail($decrypted_id);
         return view('author::show');
     }
 
@@ -61,16 +49,11 @@ class AuthorController extends Controller
     public function edit($id)
     {
         $decrypted_id = Crypt::decrypt($id);
-        $author= Author::findOrFail($decrypted_id);
-        $breadcrumbs = [
-            ['name' => 'Home', 'url' => route('home')],
-            ['name' => 'Dashboard', 'url' => route('book.dashboard')],
-            ['name' => 'Authors', 'url' => route('authors.show')],
-            ['name' => 'Edit Author']
-        ];
-        return view('author::editAuthor', [
+        $author = Author::findOrFail($decrypted_id);
+
+        return view('author::edit', [
             'author' => $author,
-            'breadcrumbs' => $breadcrumbs
+
         ]);
     }
 
@@ -94,7 +77,11 @@ class AuthorController extends Controller
         $decrypted_id = Crypt::decrypt($id);
         $author = Author::find($decrypted_id);
 
-        $author->delete();
-        return redirect()->route('authors.show')->with('danger', 'Author deleted successfully!');
+        if ($author) {
+            $author->delete();
+            return response()->json(['success' => 'author deleted successfully.']);
+        } else {
+            return response()->json(['error' => 'author not found.'], 404);
+        }
     }
 }
