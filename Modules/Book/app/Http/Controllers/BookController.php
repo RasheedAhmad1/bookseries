@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Modules\Book\App\Models\Book;
 use Modules\Author\App\Models\Author;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
 {
@@ -31,11 +33,13 @@ class BookController extends Controller
     public function create()
     {
         $authors = Author::all();
+        $book = Book::get(['status']);
         $statuses = Book::statuses;
 
         return view('book::create', [
             'authors' => $authors,
             'statuses' => $statuses,
+            'book' => $book
         ]);
     }
 
@@ -43,13 +47,36 @@ class BookController extends Controller
     public function store(Request $request)
     {
         $book = Book::create($request->all());
+        $book->addAllMediaFromTokens();
 
-        if ($request->hasFile('image')) {
-            foreach ($request->file('image') as $image)
-                $book->addMedia($image)->toMediaCollection('images');
-        }
+        // if ($request->hasFile('image')) {
+        //     foreach ($request->file('image') as $image)
+        //         $book->addMedia($image)->toMediaCollection('images');
+        // }
 
         return redirect()->route('books.show')->with('success', 'Book added successfully!');
+    }
+
+    //Upload ckeditor images method
+    public function uploadImage(Request $request): JsonResponse
+    {
+        if ($request->hasFile('upload')) {
+            $file = $request->file('upload');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('uploads', $filename, 'public');
+
+            $url = Storage::url($path);
+
+            return response()->json([
+                'uploaded' => true,
+                'url' => $url
+            ]);
+        }
+
+        return response()->json([
+            'uploaded' => false,
+            'error' => ['message' => 'File upload failed']
+        ]);
     }
 
     // Show the specified resource.
@@ -67,24 +94,19 @@ class BookController extends Controller
         $book = Book::findOrFail($decrypted_id);
         $statuses = Book::statuses;
         $authors = Author::all();
-        $breadcrumbs = [
-            ['name' => 'Home', 'url' => route('home')],
-            ['name' => 'Dashboard', 'url' => route('book.dashboard')],
-            ['name' => 'Books', 'url' => route('books.show')],
-            ['name' => 'Edit Book']
-        ];
 
-        return view('book::editBook', [
+        return view('book::edit', [
             'book' => $book,
             'statuses' => $statuses,
             'authors' => $authors,
-            'breadcrumbs' => $breadcrumbs
+
         ]);
     }
 
     // Update the specified resource in storage.
     public function update(Request $request, $id)
     {
+
         $book = Book::where('id', $id)->first();
 
         $book->title = $request->title;
@@ -98,11 +120,16 @@ class BookController extends Controller
         $book->ship_amount = $request->ship_amount;
         $book->author_id = $request->author_id;
 
-        if ($request->hasFile('image')) {
-            $book->clearMediaCollection('images'); // all media in the images collection will be deleted
-            $book->addMediaFromRequest('image')->toMediaCollection('images');
-        }
+        $book->addAllMediaFromTokens();
 
+
+        // if ($request->hasFile('image')) {
+        //     $book->clearMediaCollection('images'); // all media in the images collection will be deleted
+
+        //     foreach ($request->file('image') as $image) {
+        //         $book->addMedia($image)->toMediaCollection('images');
+        //     }
+        // }
         $book->save();
         return redirect()->route('books.show')->with('success', 'Book updated successfully!');
     }
