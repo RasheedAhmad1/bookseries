@@ -39,12 +39,16 @@
                         </div>
                     </div>
 
-                    {{-- Guard Name --}}
-                    <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label text-sm-end" for="alignment-guardname">Guard Name</label>
-                        <div class="col-sm-8">
-                            <input type="text" name="guard_name" id="alignment-guardname" class="form-control"
-                                placeholder="Enter guard name" />
+                    {{-- Permissions --}}
+                    <div class="row mb-3 col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
+                            <strong>Permission:</strong>
+                            <br/>
+                            @foreach($permission as $value)
+                                <label><input type="checkbox" name="permission[{{$value->id}}]" value="{{$value->id}}" class="name">
+                                {{ $value->name }}</label>
+                            <br/>
+                            @endforeach
                         </div>
                     </div>
 
