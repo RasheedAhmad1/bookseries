@@ -132,6 +132,20 @@
                         </div>
                     </div>
 
+                    {{-- Role --}}
+                    <div class="row mb-3">
+                        <div class="form-group">
+                            <strong>Role:</strong>
+                            <select name="roles[]" class="form-control" multiple="multiple">
+                                @foreach ($roles as $value => $label)
+                                    <option value="{{ $value }}">
+                                        {{ $label }}
+                                    </option>
+                                 @endforeach
+                            </select>
+                        </div>
+                    </div>
+
                     <hr class="my-4 mx-n4">
                     {{-- Add book button --}}
                     <div class="card-footer col-md-12 d-flex justify-content-center align-items-center">

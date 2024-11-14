@@ -142,7 +142,7 @@
 
 
                     {{-- user role --}}
-                    {{-- <div class="row mb-3">
+                    <div class="row mb-3">
                         <label for="defaultSelect" class="col-sm-2 col-form-label text-sm-end">Role</label>
                         <div class="col-sm-8">
                             <select id="defaultSelect" name="roles[]" class="form-select">
@@ -153,7 +153,7 @@
                                 @endforeach
                             </select>
                         </div>
-                    </div> --}}
+                    </div>
 
                     {{-- Add user button --}}
                     <hr class="my-1 mx-1">
