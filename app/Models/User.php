@@ -13,13 +13,10 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasRoles;
 
-    // The User model requires this trait
-    use HasRoles;
     public const gender = [
         0 => 'Non Active',
         1 => 'Active',
     ];
-
 
     /**
      * The attributes that are mass assignable.
