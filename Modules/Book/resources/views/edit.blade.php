@@ -136,7 +136,7 @@
                     <hr class="my-4 mx-1">
                     {{-- Add book button --}}
                     <div class="card-footer col-md-12 d-flex justify-content-end align-items-center g-5">
-                        <a href="{{ route('books.show') }}" type="button" class="btn btn-secondary">Cancel</a>
+                        <a href="{{ route('books.index') }}" type="button" class="btn btn-secondary">Cancel</a>
                         &nbsp;&nbsp;&nbsp;
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>

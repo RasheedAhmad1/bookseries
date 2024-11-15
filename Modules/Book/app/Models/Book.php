@@ -8,7 +8,6 @@ use Modules\Author\App\Models\Author;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\HasMedia;
 use App\Models\UserPrivilege;
-
 use AhmedAliraqi\LaravelMediaUploader\Entities\Concerns\HasUploader;
 
 class Book extends Model implements HasMedia

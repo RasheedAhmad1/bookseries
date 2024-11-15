@@ -14,6 +14,6 @@ use Modules\Book\Http\Controllers\BookController;
  *
 */
 
-Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
-    Route::apiResource('book', BookController::class)->names('book');
-});
+// Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
+//     Route::apiResource('book', BookController::class)->names('book');
+// });

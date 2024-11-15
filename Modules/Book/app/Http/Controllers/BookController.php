@@ -53,7 +53,7 @@ class BookController extends Controller
         //         $book->addMedia($image)->toMediaCollection('images');
         // }
 
-        return redirect()->route('books.show')->with('success', 'Book added successfully!');
+        return redirect()->route('books.index')->with('success', 'Book added successfully!');
     }
 
     //Upload ckeditor images method
@@ -140,7 +140,7 @@ class BookController extends Controller
         //     }
         // }
         $book->save();
-        return redirect()->route('books.show')->with('success', 'Book updated successfully!');
+        return redirect()->route('books.index')->with('success', 'Book updated successfully!');
     }
 
     // Remove the specified resource from storage.

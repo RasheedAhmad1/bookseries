@@ -32,27 +32,15 @@
                 <div data-i18n="Content">Content</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item {{ request()->is('books/dashboard') ? 'active' : '' }}">
-                    <a href="{{ route('books.dashboard') }}" class="menu-link">
-                        {{-- <i class="fa-solid fa-book"></i> --}}
-                        <div data-i18n="Dashboard">Dashboard</div>
-                    </a>
-                </li>
                 {{-- @dd(auth()->user()->hasPermissionTo('book_index')) --}}
-                {{-- @can('book_index') --}}
+                @can('book_index')
                     <li
                         class="menu-item {{ in_array(request()->path(), ['books', 'create', 'editbook/' . request('id'), 'deletebook/' . request('id')]) ? 'active' : '' }}">
                         <a href="{{ route('books.index') }}" class="menu-link">
                             <div data-i18n="Books">Books</div>
                         </a>
                     </li>
-                {{-- @endcan --}}
-                <li
-                    class="menu-item {{ in_array(request()->path(), ['books', 'create', 'editbook/' . request('id'), 'deletebook/' . request('id')]) ? 'active' : '' }}">
-                    <a href="{{ route('books.show') }}" class="menu-link">
-                        <div data-i18n="Books"> Books</div>
-                    </a>
-                </li>
+                @endcan
                 <li
                     class="menu-item {{ in_array(request()->path(), ['tests', 'addtest', 'edittest/' . request('id'), 'deletetest/' . request('id')]) ? 'active' : '' }}">
                     <a href="{{ route('tests.show') }}" class="menu-link">
