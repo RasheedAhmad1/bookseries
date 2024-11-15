@@ -14,7 +14,6 @@ class BookController extends Controller
 {
     public function index()
     {
-
         $books = Book::all();
 
         return view('book::index', [
@@ -54,7 +53,7 @@ class BookController extends Controller
         //         $book->addMedia($image)->toMediaCollection('images');
         // }
 
-        return redirect()->route('books.show')->with('success', 'Book added successfully!');
+        return redirect()->route('books.index')->with('success', 'Book added successfully!');
     }
 
     //Upload ckeditor images method
@@ -82,9 +81,19 @@ class BookController extends Controller
     // Show the specified resource.
     public function show($id)
     {
+        // $user = auth()->user();
+
+        // // Check if the user has access to this book
+        // if (!$user->hasPrivilegeFor($book)) {
+        //     abort(403, 'Unauthorized access to this book.');
+        // }
+
         $decrypted_id = Crypt::decrypt($id);
         $book = Book::findOrFail($decrypted_id);
-        return view('book::show');
+
+        return view('book::show', [
+            'book' => $book
+        ]);
     }
 
     // Show the form for editing the specified resource.
@@ -131,7 +140,7 @@ class BookController extends Controller
         //     }
         // }
         $book->save();
-        return redirect()->route('books.show')->with('success', 'Book updated successfully!');
+        return redirect()->route('books.index')->with('success', 'Book updated successfully!');
     }
 
     // Remove the specified resource from storage.

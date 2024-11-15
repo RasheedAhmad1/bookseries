@@ -32,12 +32,15 @@
                 <div data-i18n="Content">Content</div>
             </a>
             <ul class="menu-sub">
-                <li
-                    class="menu-item {{ in_array(request()->path(), ['books', 'create', 'editbook/' . request('id'), 'deletebook/' . request('id')]) ? 'active' : '' }}">
-                    <a href="{{ route('books.show') }}" class="menu-link">
-                        <div data-i18n="Books"> Books</div>
-                    </a>
-                </li>
+                {{-- @dd(auth()->user()->hasPermissionTo('book_index')) --}}
+                @can('book_index')
+                    <li
+                        class="menu-item {{ in_array(request()->path(), ['books', 'create', 'editbook/' . request('id'), 'deletebook/' . request('id')]) ? 'active' : '' }}">
+                        <a href="{{ route('books.index') }}" class="menu-link">
+                            <div data-i18n="Books">Books</div>
+                        </a>
+                    </li>
+                @endcan
                 <li
                     class="menu-item {{ in_array(request()->path(), ['tests', 'addtest', 'edittest/' . request('id'), 'deletetest/' . request('id')]) ? 'active' : '' }}">
                     <a href="{{ route('tests.show') }}" class="menu-link">
@@ -177,13 +180,13 @@
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="{{ route('permissions.index') }}" class="menu-link">
-                        <div data-i18n="Permissions">Permissions</div>
+                    <a href="{{ route('roles.index') }}" class="menu-link">
+                        <div data-i18n="Roles">Roles</div>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="{{ route('roles.index') }}" class="menu-link">
-                        <div data-i18n="Roles">Roles</div>
+                    <a href="{{ route('privileges.index') }}" class="menu-link">
+                        <div data-i18n="Privileges">Privileges</div>
                     </a>
                 </li>
                 <li class="menu-item">

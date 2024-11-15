@@ -8,6 +8,8 @@ use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Auth\Events\Validated;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -25,11 +27,12 @@ class UserController extends Controller
     // Show the form for creating a new resource
     public function create()
     {
-        // $roles = Role::pluck('name', 'name')->all();
+        $roles = Role::pluck('name', 'name')->all();
         $gender = User::gender;
 
         return view('setting::user.create', [
-            'gender' => $gender
+            'gender' => $gender,
+            'roles' => $roles
         ]);
     }
 
@@ -41,7 +44,7 @@ class UserController extends Controller
         $input['password'] = Hash::make($input['password']);
 
         $user = User::create($input);
-        // $user->assignRole($request->input('roles'));
+        $user->assignRole($request->input('roles'));
         $user->save();
         return redirect()->route('users.index')->with('success', 'User created successfully');
     }
@@ -60,11 +63,13 @@ class UserController extends Controller
         $decrypted = Crypt::decrypt($id);
 
         $user = User::find($decrypted);
-        // $roles = Role::pluck('name', 'name')->all();
-        // $userRole = $user->roles->pluck('name', 'name')->all();
+        $roles = Role::pluck('name', 'name')->all();
+        $userRole = $user->roles->pluck('name', 'name')->all();
 
         return view('setting::user.edit', [
-            'user' => $user
+            'user' => $user,
+            'roles' => $roles,
+            'userRole' => $userRole
         ]);
     }
 
@@ -77,6 +82,7 @@ class UserController extends Controller
         //     'roles' => 'required'
         // ]);
 
+        // dd(request()->all());
         $decrypted = Crypt::decrypt($id);
         $user = User::where('id', $decrypted)->first();
 
@@ -89,9 +95,26 @@ class UserController extends Controller
 
 
         $user->update($input);
-        // DB::table('model_has_roles')->where('model_id', $id)->delete();
+        DB::table('model_has_roles')->where('model_id', $decrypted)->delete();
 
-        // $user->assignRole($request->input('roles'));
+        $user->assignRole($request->input('roles'));
+        // $role = Role::findByName($request->input('roles')); // Replace 'writer' with the role name
+
+        // dd($role);
+        // $permissions = $role->permissions;
+
+        // $user->givePermissionTo($permissions);
+
+        $roles = $request->input('roles');
+        $permissions = [];
+        foreach ($roles as $roleName) {
+            $role = Role::findByName($roleName); // Find each role by name
+            $permissions = array_merge($permissions, $role->permissions->all());
+        }
+
+        // Remove duplicate permissions and assign them to the user
+        $uniquePermissions = collect($permissions)->unique('id'); // Ensure no duplicates
+        $user->givePermissionTo($uniquePermissions);
 
         return redirect()->route('users.index')->with('success', 'User updated successfully');
     }

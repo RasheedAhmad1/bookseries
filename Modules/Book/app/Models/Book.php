@@ -2,10 +2,12 @@
 
 namespace Modules\Book\App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Author\App\Models\Author;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\HasMedia;
+use App\Models\UserPrivilege;
 use AhmedAliraqi\LaravelMediaUploader\Entities\Concerns\HasUploader;
 
 class Book extends Model implements HasMedia
@@ -24,5 +26,10 @@ class Book extends Model implements HasMedia
     public function author()
     {
         return $this->belongsTo(Author::class);
+    }
+
+    public function privileges()
+    {
+        return $this->morphMany(UserPrivilege::class, 'privilegeable');
     }
 }
