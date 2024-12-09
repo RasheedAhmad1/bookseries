@@ -13,8 +13,11 @@
                 <li class="breadcrumb-item">
                     <a href="{{ url('book/dashboard') }}">Dashboard</a>
                 </li>
+                <li class="breadcrumb-item">
+                    <a href="{{ url('books') }}">Book</a>
+                </li>
 
-                <li class="breadcrumb-item active text-primary">Books</li>
+                <li class="breadcrumb-item active text-primary">Sections</li>
             </ol>
         </nav>
     </div>
@@ -23,7 +26,7 @@
     <!-- Table -->
     <div class="row">
         <div class="col-xxl">
-            <div class="card mb-4">~~
+            <div class="card mb-4">
                 @if (session('success'))
                     <div class="alert alert-success">
                         {{ session('success') }}
@@ -36,9 +39,10 @@
 
                 <div class="card-header col-md-12 d-flex justify-content-between align-items-center">
                     <h5 class="card-header text-primary">
-                        <li class="fa fa-align-justify"></li> Books
+                        <li class="fa fa-align-justify"></li> Sections
                     </h5>
-                    <a href="{{ route('book.create') }}" class="btn btn-primary">+ New Book</a>
+                    <a href="{{ route('section.create', Crypt::encrypt($book->id)) }}" class="btn btn-primary">+ New
+                        Section</a>
                 </div>
                 <div class="menu-divider mb-4"></div>
                 <div class="table-responsive text-nowrap card-body">
@@ -48,19 +52,20 @@
                                 <th>S. No.</th>
                                 <th>Title</th>
                                 <th>Author</th>
-                                <th>Price</th>
+                                <th>Book</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody class="table-border-bottom-0">
-                            @foreach ($books as $key => $book)
+                            @foreach ($sections as $section)
                                 <tr>
-                                    <td>{{ ++$key }}</td> <!-- Serial Number -->
-                                    <td>{{ $book->title }}</td>
-                                    <td>{{ $book->author->name }}</td>
-                                    <td>{{ $book->price }}</td>
+                                    <td>{{ $section->id }}</td> <!-- Serial Number -->
+                                    <td>{{ $section->title ?? '' }}</td>
+                                    <td>{{ $section->author->name ?? '' }}</td>
+                                    <td>{{ $section->book->title }}</td>
+
                                     @php
-                                        $id = Crypt::encrypt($book->id);
+                                        $id = Crypt::encrypt($section->id ?? '');
                                     @endphp
                                     <td>
                                         <div class="dropdown">
@@ -69,20 +74,20 @@
                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                                {{-- <a class="dropdown-item" href="{{ route('book.show', $id) }}">
+                                                {{-- <a class="dropdown-item" href="{{ route('section.show', $id) }}">
                                                     <i class="bx bx-show-alt me-1"></i>
                                                     Show
                                                 </a> --}}
-                                                <a class="dropdown-item" href="{{ route('sections.index', $id) }}">
+                                                <a class="dropdown-item" href="{{ route('units.index', $id) }}">
                                                     <i class="bx bx-book-alt me-1"></i>
-                                                    Sections
+                                                    Units
                                                 </a>
-                                                <a class="dropdown-item" href="{{ route('book.edit', $id) }}">
+                                                <a class="dropdown-item" href="{{ route('section.edit', $id) }}">
                                                     <i class="bx bx-edit-alt me-1"></i>
                                                     Edit
                                                 </a>
                                                 <button type="button" class="dropdown-item deletebtn"
-                                                    onclick="deleteBook('{{ $id }}')">
+                                                    onclick="deleteSection('{{ $id }}')">
                                                     <i class="bx bx-trash me-1"></i> Delete
                                                 </button>
                                             </div>
@@ -102,8 +107,10 @@
     <script src="{{ asset('assets/js/ui-modals.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+
     <script>
-        function deleteBook(book_id) {
+        function deleteSection(section_id) {
+            // console.log('Section ID being sent:', section_id); // Debugging step
             Swal.fire({
                 title: "Are you sure?",
                 text: "You won't be able to revert this!",
@@ -115,15 +122,15 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: '/delete-book/' + book_id,
-                        type: 'DELETE',
+                        url: '/delete-section/' + section_id,
+                        type: 'GET',
                         data: {
                             _token: '{{ csrf_token() }}'
                         },
                         success: function(response) {
                             Swal.fire({
                                 title: "Deleted!",
-                                text: "The book has been deleted.",
+                                text: "The section has been deleted.",
                                 icon: "success"
                             }).then(() => {
                                 location.reload();
@@ -132,7 +139,7 @@
                         error: function(xhr) {
                             Swal.fire({
                                 title: "Error!",
-                                text: "There was an issue deleting the book.",
+                                text: "There was an issue deleting the section.",
                                 icon: "error"
                             });
                         }

@@ -94,25 +94,6 @@
                             <input type="text" name="orderNo" id="alignment-username" class="form-control"
                                 placeholder="Order no." />
                         </div>
-
-
-
-                    </div>
-
-                    <div class="row mb-3">
-                        {{-- Shipping Charges --}}
-                        <div class="col-sm-6">
-                            <label class="col-form-label text-sm-end" for="alignment-username">Shipping Charges</label>
-                            <input type="text" name="ship_amount" id="alignment-username" class="form-control"
-                                placeholder="Enter shiping charges" />
-                        </div>
-
-                        {{-- Order --}}
-                        <div class="col-sm-6">
-                            <label class="col-form-label text-sm-end" for="alignment-order">Order No.</label>
-                            <input type="text" name="orderNo" id="alignment-username" class="form-control"
-                                placeholder="Order no." />
-                        </div>
                     </div>
 
                     {{-- status --}}
@@ -150,7 +131,6 @@
                             </div>
                         </div>
                     </div>
-
 
                     <hr class="my-4 mx-1">
                     {{-- Add book button --}}

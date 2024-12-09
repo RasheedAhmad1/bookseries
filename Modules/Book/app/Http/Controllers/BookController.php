@@ -18,7 +18,6 @@ class BookController extends Controller
 
         return view('book::index', [
             'books' => $books,
-
         ]);
     }
 
