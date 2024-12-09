@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Crypt;
 class RoleController extends Controller
 {
     use ValidatesRequests;
-    
+
     // Display a listing of the resource
     // function __construct()
     // {
@@ -27,7 +27,7 @@ class RoleController extends Controller
     // Display a listing of the resource
     public function index(Request $request): View
     {
-        $roles = Role::orderBy('id','DESC')->paginate(5);
+        $roles = Role::orderBy('id', 'DESC')->paginate(5);
         return view('setting::role.index', compact('roles'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
 
@@ -55,7 +55,9 @@ class RoleController extends Controller
         ]);
 
         $permissionsID = array_map(
-            function($value) { return (int)$value; },
+            function ($value) {
+                return (int)$value;
+            },
             $request->input('permission')
         );
 
@@ -64,17 +66,17 @@ class RoleController extends Controller
         $role->syncPermissions($permissionsID);
 
         return redirect()->route('roles.index')
-                        ->with('success','Role created successfully');
+            ->with('success', 'Role created successfully');
     }
     // Display the specified resource
     public function show($id): View
     {
         $role = Role::find($id);
-        $rolePermissions = Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")
-            ->where("role_has_permissions.role_id",$id)
+        $rolePermissions = Permission::join("role_has_permissions", "role_has_permissions.permission_id", "=", "permissions.id")
+            ->where("role_has_permissions.role_id", $id)
             ->get();
 
-        return view('roles.show',compact('role','rolePermissions'));
+        return view('roles.show', compact('role', 'rolePermissions'));
     }
 
     // Show the form for editing the specified resource
@@ -82,6 +84,7 @@ class RoleController extends Controller
     {
         $decrypted_id = Crypt::decrypt($id);
         $role = Role::findOrFail($decrypted_id);
+        $permission = Permission::get();
 
         // $permission = Permission::get();
         // $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id", $id)
@@ -90,7 +93,8 @@ class RoleController extends Controller
 
         // return view('role.edit',compact('role','permission','rolePermissions'));
         return view('setting::role.edit', [
-            'role' => $role
+            'role' => $role,
+            'permission' => $permission
         ]);
     }
 
@@ -116,7 +120,7 @@ class RoleController extends Controller
         // $role->syncPermissions($permissionsID);
 
         return redirect()->route('roles.index')
-                        ->with('success','Role updated successfully');
+            ->with('success', 'Role updated successfully');
     }
     // Remove the specified resource from storage
     public function destroy($id)
@@ -124,7 +128,7 @@ class RoleController extends Controller
         $decrypted_id = Crypt::decrypt($id);
         $role = Role::findOrFail($decrypted_id);
 
-        if($role) {
+        if ($role) {
             $role->delete();
             return response()->json(['success', 'Role deleted successfully!']);
         } else {

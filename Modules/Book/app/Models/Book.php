@@ -32,4 +32,9 @@ class Book extends Model implements HasMedia
     {
         return $this->morphMany(UserPrivilege::class, 'privilegeable');
     }
+
+    public function sections()
+    {
+        return $this->hasMany(Section::class);
+    }
 }

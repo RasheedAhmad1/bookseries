@@ -132,7 +132,6 @@
                         </div>
                     </div>
 
-
                     <hr class="my-4 mx-1">
                     {{-- Add book button --}}
                     <div class="card-footer col-md-12 d-flex justify-content-end align-items-center g-5">
