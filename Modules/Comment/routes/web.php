@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Comment\App\Http\Controllers\CommentController;
-
 // Comment dashboard route
 // Route::get('comment/dashboard', [CommentController::class, 'index'])->name('comment.dashboard');
 
