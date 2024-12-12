@@ -11,7 +11,10 @@
                     <a href={{ route('home') }}>Home</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a href="{{ url('books') }}">Books</a>
+                    <a href="{{ route('books.dashboard') }}">Dashboard</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{{ route('books.index') }}">Books</a>
                 </li>
 
                 <li class="breadcrumb-item active text-primary">Edit Book</li>

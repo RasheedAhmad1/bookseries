@@ -34,12 +34,12 @@
             <ul class="menu-sub">
                 {{-- @dd(auth()->user()->hasPermissionTo('book_index')) --}}
                 {{-- @can('book_index') --}}
-                    <li
-                        class="menu-item {{ in_array(request()->path(), ['books', 'create', 'editbook/' . request('id'), 'deletebook/' . request('id')]) ? 'active' : '' }}">
-                        <a href="{{ route('books.index') }}" class="menu-link">
-                            <div data-i18n="Books">Books</div>
-                        </a>
-                    </li>
+                <li
+                    class="menu-item {{ in_array(request()->path(), ['books', 'create', 'editbook/' . request('id'), 'deletebook/' . request('id')]) ? 'active' : '' }}">
+                    <a href="{{ route('books.index') }}" class="menu-link">
+                        <div data-i18n="Books">Books</div>
+                    </a>
+                </li>
                 {{-- @endcan --}}
                 <li
                     class="menu-item {{ in_array(request()->path(), ['tests', 'addtest', 'edittest/' . request('id'), 'deletetest/' . request('id')]) ? 'active' : '' }}">

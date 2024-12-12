@@ -41,10 +41,12 @@ class SectionController extends Controller
     {
         $decrypt_id = Crypt::decrypt($id);
         $book = Book::findOrFail($decrypt_id);
-        $sections = Section::all();
+        $sections = Section::where('book_id', $decrypt_id)->get();
+
+
         return view('book::section.create', [
             'sections' => $sections,
-            'book' => $book
+            'book' => $book,
             // 'author' => $book->author_id
         ]);
     }

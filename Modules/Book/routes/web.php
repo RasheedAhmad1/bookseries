@@ -50,3 +50,11 @@ Route::delete('delete-unit/{id}', [UnitController::class, 'destroy'])->name('del
 
 //Question Routes
 Route::get('questions/{id}', [QuestionController::class, 'index'])->name('questions.index');
+Route::get('create-question/{id}', [QuestionController::class, 'create'])->name('question.create');
+Route::post('store-question/{id}', [QuestionController::class, 'store'])->name('question.store');
+Route::get('edit-question/{id}', [QuestionController::class, 'edit'])->name('question.edit');
+Route::post('update-question/{id}', [QuestionController::class, 'update'])->name('question.update');
+// Route for uploading ckeditor images
+Route::post('question/upload-image', [QuestionController::class, 'uploadImage'])->name('image_question.upload');
+// Delete unit route with Modal
+Route::get('delete-question/{id}', [QuestionController::class, 'destroy'])->name('delete.question');
