@@ -117,10 +117,16 @@ class UnitController extends Controller
             abort(404, 'Invalid unit ID');
         }
 
+        // $unit = Unit::with('section.book')->findOrFail($decrypt_id);
+        // // Access the book through the relationships
+        // $book = $unit->section->book;
         $unit = Unit::findOrFail($decrypt_id);
+        $section_id = $unit->section_id;
+        $section = Section::findOrFail($section_id);
 
         return view('book::units.edit', [
-            'unit' => $unit
+            'unit' => $unit,
+            'section' => $section
         ]);
     }
 

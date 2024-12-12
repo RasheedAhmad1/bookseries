@@ -11,7 +11,7 @@
                     <a href={{ route('home') }}>Home</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a href="{{ url('book/dashboard') }}">Dashboard</a>
+                    <a href="{{ route('books.dashboard') }}">Dashboard</a>
                 </li>
 
                 <li class="breadcrumb-item active text-primary">Books</li>
@@ -23,7 +23,7 @@
     <!-- Table -->
     <div class="row">
         <div class="col-xxl">
-            <div class="card mb-4">~~
+            <div class="card mb-4">
                 @if (session('success'))
                     <div class="alert alert-success">
                         {{ session('success') }}
@@ -42,6 +42,7 @@
                 </div>
                 <div class="menu-divider mb-4"></div>
                 <div class="table-responsive text-nowrap card-body">
+
                     <table class="table">
                         <thead class="table-light">
                             <tr>
