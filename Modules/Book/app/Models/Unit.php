@@ -26,6 +26,11 @@ class Unit extends Model implements HasMedia
         return $this->belongsTo(Section::class);
     }
 
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
+    }
+
     public function privileges()
     {
         return $this->morphMany(UserPrivilege::class, 'privilegeable');
