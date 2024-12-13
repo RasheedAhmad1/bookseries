@@ -17,10 +17,13 @@ class UserController extends Controller
     // Display a listing of the resource
     public function index()
     {
-        // dd('I am here');
+
         $data = User::latest()->paginate(5);
 
-        return view('setting::user.index', compact('data'))
+        return view('setting::user.index', [
+            'data' => $data,
+            'title' => 'User Management',
+        ])
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 

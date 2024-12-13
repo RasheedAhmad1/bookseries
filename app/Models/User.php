@@ -15,11 +15,15 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasRoles;
 
-    // Privileges
-    // public function privileges()
-    // {
-    //     return $this->hasMany(UserPrivilege::class);
-    // }
+    protected $fillable = ['name', 'email', 'phone', 'cnic', 'gender', 'country', 'province', 'district', 'professional', 'address', 'password'];
+
+    // The attributes that should be hidden for serialization
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+
     public function privileges()
     {
         return $this->morphMany(UserPrivilege::class, 'privilegeable');
@@ -40,7 +44,7 @@ class User extends Authenticatable
         return $this->privileges()->where('privilegeable_type', Unit::class);
     }
 
-    // Assign privilege to a specific book, section or unit
+
     public function hasPrivilegeFor($model, $privilegeName = 'access')
     {
         return $this->privileges()
@@ -55,19 +59,8 @@ class User extends Authenticatable
         2 => 'Other'
     ];
 
-    // The attributes that are mass assignable
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = ['name', 'email', 'phone', 'cnic', 'gender', 'country', 'province', 'district', 'professional', 'address', 'password'];
 
-    // The attributes that should be hidden for serialization
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+
 
     // Get the attributes that should be cast
     protected function casts(): array
