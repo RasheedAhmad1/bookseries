@@ -74,7 +74,6 @@ class QuestionController extends Controller
         }
 
         $requestData = $request->all();
-        dd($requestData);
         $question = Question::create($requestData);
         $question->addAllMediaFromTokens();
 
