@@ -58,3 +58,6 @@ Route::post('update-question/{id}', [QuestionController::class, 'update'])->name
 Route::post('question/upload-image', [QuestionController::class, 'uploadImage'])->name('image_question.upload');
 // Delete unit route with Modal
 Route::get('delete-question/{id}', [QuestionController::class, 'destroy'])->name('delete.question');
+
+// Route for adding bulk question
+Route::get('create-bulk-question/{id}', [QuestionController::class, 'createBulk'])->name('bulk-question.create');

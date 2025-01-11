@@ -62,11 +62,38 @@ class QuestionController extends Controller
         ]);
     }
 
+
+    public function createBulk($unit_id)
+    {
+        try {
+            $decrypted_id = Crypt::decrypt($unit_id);
+        } catch (DecryptException $e) {
+            abort(404, 'Invalid unit ID');
+        }
+
+        $unit = Unit::findOrFail($decrypted_id);
+        $section_id = $unit->section_id;
+        $section = Section::findOrFail($section_id);
+        $questions = Question::where('unit_id', $decrypted_id)->get();
+
+        $unit_id = $questions->pluck('unit_id');
+        return view('book::questions.create-bulk', [
+            'unit' => $unit,
+            'section' => $section,
+            'unit_id' => $decrypted_id, // Pass the `unit_id` to the view
+        ]);
+    }
+
+
+
+
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request, $unit_id)
     {
+
         try {
             $decrypted_id = Crypt::decrypt($unit_id);
         } catch (DecryptException $e) {
@@ -76,7 +103,6 @@ class QuestionController extends Controller
         $requestData = $request->all();
         $question = Question::create($requestData);
         $question->addAllMediaFromTokens();
-
         $encrypted_unit_id = Crypt::encrypt($decrypted_id);
         return redirect()->route('questions.index', $encrypted_unit_id)->with('success', 'Question added successfully!');
     }
@@ -123,13 +149,12 @@ class QuestionController extends Controller
             abort(404, 'Invalid question ID');
         }
 
-        $question = Question::findOrFail($decrypted_question_id);
+        $question = Question::with('media')->findOrFail($decrypted_question_id);
         $unit_id =  $question->unit_id;
         $unit = Unit::findOrFail($unit_id);
         $section_id = $unit->section_id;
         $section = Section::findOrFail($section_id);
-        // $encrypted_question_id = Crypt::encrypt($question_id);
-        // dd($encrypted_question_id);
+
 
         return view('book::questions.edit', [
             'question' => $question,
@@ -150,7 +175,14 @@ class QuestionController extends Controller
         }
 
         $question = Question::findOrFail($decrypted_question_id);
-        $question->addAllMediaFromTokens();
+        if ($request->has('question_images')) {
+            $question->addAllMediaFromTokens();
+        }
+
+        if ($request->has('answer_images')) {
+            $question->addAllMediaFromTokens();
+        }
+
         $question->update($request->all());
 
         $encrypted_question_id = Crypt::encrypt($question->unit_id);

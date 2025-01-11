@@ -46,6 +46,8 @@
                     <h5 class="card-header text-primary">
                         <li class="fa fa-align-justify"></li> Questions
                     </h5>
+                    <a href="{{ route('bulk-question.create', Crypt::encrypt($unit->id)) }}" class="btn btn-primary">+ New
+                       Bulk Questions</a>
                     <a href="{{ route('question.create', Crypt::encrypt($unit->id)) }}" class="btn btn-primary">+ New
                         Question</a>
                 </div>

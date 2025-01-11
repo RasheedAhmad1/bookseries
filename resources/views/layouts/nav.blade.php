@@ -399,7 +399,7 @@
                                         </div>
                                     </div>
                                     <div class="flex-grow-1">
-                                        <span class="fw-semibold d-block lh-1">{{ auth()->user()->name }}</span>
+                                        {{-- <span class="fw-semibold d-block lh-1">{{ auth()->user()->name }}</span> --}}
                                         {{-- <small>{{ auth()->user()->roles->first()->name }}</small> --}}
                                         {{-- <small>
                                             @foreach (auth()->user()->roles as $role)

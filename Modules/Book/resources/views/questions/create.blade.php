@@ -72,9 +72,9 @@
                     <div class="row mb-3 mt-3">
                         <div class="col-sm-12">
                             <div id="app">
-                                <file-uploader :unlimited="true" collection="images"
-                                    :tokens="{{ json_encode(old('media', [])) }}" label="Question Attachment"
-                                    notes="Supported types: jpeg, png,jpg,gif"
+                                <file-uploader :unlimited="true" collection="question_images"
+                                    :tokens="{{ json_encode(old('media.question_images', [])) }}"
+                                    label="Question Attachment" notes="Supported types: jpeg, png,jpg,gif"
                                     accept="image/jpeg,image/png,image/jpg,image/gif"></file-uploader>
                             </div>
                         </div>
@@ -108,8 +108,8 @@
                     <div class="row mb-3 mt-3">
                         <div class="col-sm-12">
                             <div id="app2">
-                                <file-uploader :unlimited="true" collection="images"
-                                    :tokens="{{ json_encode(old('media', [])) }}" label="Answer Attachment"
+                                <file-uploader :unlimited="true" collection="answer_images"
+                                    :tokens="{{ json_encode(old('media.answer_images', [])) }}" label="Answer Attachment"
                                     notes="Supported types: jpeg, png,jpg,gif"
                                     accept="image/jpeg,image/png,image/jpg,image/gif"></file-uploader>
                             </div>

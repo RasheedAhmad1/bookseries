@@ -74,13 +74,18 @@
                     <div class="row mb-3 mt-3">
                         <div class="col-sm-12">
                             <div id="app">
-                                <file-uploader :media="{{ $question->getMediaResource('images') }}" :unlimited="true"
-                                    collection="images" :tokens="{{ json_encode(old('media', [])) }}"
-                                    label="Question Attachment" notes="Supported types: jpeg, png,jpg,gif"
-                                    accept="image/jpeg,image/png,image/jpg,image/gif"></file-uploader>
+                                <file-uploader :media="{{ json_encode($question->getMediaResource('question_images')) }}"
+                                    :unlimited="true" collection="question_images"
+                                    :tokens="{{ json_encode(old('media.question_images', [])) }}"
+                                    label="Question Attachment" notes="Supported types: jpeg, png, jpg, gif"
+                                    accept="image/jpeg,image/png,image/jpg,image/gif">
+                                </file-uploader>
                             </div>
+
                         </div>
                     </div>
+
+
 
                     <div class="row mb-3">
                         {{-- Answer --}}
@@ -116,10 +121,12 @@
                                     accept="image/jpeg,image/png,image/jpg,image/gif"></file-uploader>
                             </div> --}}
                             <div id="app2">
-                                <file-uploader :media="{{ $question->getMediaResource('images') }}" :unlimited="true"
-                                    collection="images" :tokens="{{ json_encode(old('media', [])) }}"
-                                    label="Answer Attachment" notes="Supported types: jpeg, png,jpg,gif"
-                                    accept="image/jpeg,image/png,image/jpg,image/gif"></file-uploader>
+                                <file-uploader :media="{{ json_encode($question->getMediaResource('answer_images')) }}"
+                                    :unlimited="true" collection="answer_images"
+                                    :tokens="{{ json_encode(old('media.answer_images', [])) }}" label="Answer Attachment"
+                                    notes="Supported types: jpeg, png, jpg, gif"
+                                    accept="image/jpeg,image/png,image/jpg,image/gif">
+                                </file-uploader>
                             </div>
                         </div>
                     </div>
